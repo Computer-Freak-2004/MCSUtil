@@ -12,7 +12,7 @@ int main() {
 
     char* items[] = {
         "CreateDir Test",
-        "Delete single Dir"
+        "Delete single Dir",
         "Delete all Dirs",
         "About",
         "Exit"};
@@ -28,7 +28,7 @@ int main() {
         EnableStatusArea(1);
         DisplayStatusArea();
 
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < count; i++) {
             int x = 0, y = 20 + i * 20;
             char menustr[64];
             if (i == selected) {
