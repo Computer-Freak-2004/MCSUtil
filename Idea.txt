@@ -1,0 +1,11 @@
+MCS Tool
+Zeige Anzahl an Ordner auf Startbildschirm
+
+1- CreateDir Test
+2- Delete All Dirs
+3- Delete Specfic Dir
+- Load List
+- Scroll thorugh List with menu
+- EXE to delete
+
+4- About
