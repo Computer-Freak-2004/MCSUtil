@@ -1,5 +1,5 @@
 MCS Tool
-Zeige Anzahl an Ordner auf Startbildschirm
+Show amount of Directories?
 
 1- CreateDir Test
 2- Delete All Dirs
