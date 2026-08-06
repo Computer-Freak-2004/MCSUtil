@@ -20,7 +20,7 @@ int main() {
     int selected = 0;
     int count = sizeof(items) / sizeof(items[0]);
     int key;
-   
+
     while (1) {
         Cursor_SetFlashOff();
         Bdisp_AllClr_VRAM();
@@ -50,13 +50,11 @@ int main() {
         if (key == KEY_CTRL_DOWN)
             selected = (selected + count + 1) % count;
 
-       
         if (key == KEY_CTRL_EXE && selected == 0) {
             createDirTest();
         }
 
-         if (key == KEY_CTRL_EXE && selected == 1) {
-            MCS_GetDirectoryEntryByNumber( 0, 1);
+        if (key == KEY_CTRL_EXE && selected == 1) {
         }
         if (key == KEY_CTRL_EXE && selected == 3) {
             while (1) {
