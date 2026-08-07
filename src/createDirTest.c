@@ -11,7 +11,8 @@
 #include "mcs_syscalls.h"
 #include "util.h"
 
-char name[21];
+#define MAX_INPUT_LEN 7
+char name[MAX_INPUT_LEN+1];
 int rc = -1;
 char result_dec[16];
 char result_hex[16];
@@ -30,7 +31,7 @@ void printResult() {
         strcat(result, ", 0x");
         strcat(result, result_hex);
 
-        PrintMini(&x, &y, result, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
+        PrintMini(&x, &y, result, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0); // Return Code
         x = 0, y = 80;
         if (rc == 0) {
             PrintMini(&x, &y, "Success", 0, 0xFFFFFFFF, 0, 0, COLOR_LIME, COLOR_WHITE, 1, 0);
@@ -43,7 +44,7 @@ void printResult() {
         }
 
         x = 0, y = 170;
-        PrintMini(&x, &y, name, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
+        PrintMini(&x, &y, name, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0); // Entred input
     } else if (rc == -1) {  // No input done
         x = 0, y = 170;
         PrintMini(&x, &y, "Enter a name for a MCS dir without @.", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
@@ -94,8 +95,8 @@ void createDirTest() {
         }
 
         if (key && key < 30000)
-            cursor = EditMBStringChar((unsigned char*)buffer, 20, cursor, key);
+            cursor = EditMBStringChar((unsigned char*)buffer, MAX_INPUT_LEN, cursor, key);
         else
-            EditMBStringCtrl((unsigned char*)buffer, 20, &start, &cursor, &key, 1, 1);
+            EditMBStringCtrl((unsigned char*)buffer, MAX_INPUT_LEN, &start, &cursor, &key, 1, 1);
     }
 }
