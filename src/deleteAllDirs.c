@@ -51,7 +51,7 @@ void deleteAllDirs() {
             strcpy(buf, "Deleting ");
             strcat(buf, dir->name);
 
-            int x = 60, y = 30;
+            int x = 65, y = 40;
             PrintMini(&x, &y, buf, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);  // Name
 
             memset(buf, 0, 64);
@@ -66,7 +66,7 @@ void deleteAllDirs() {
             itoa(MCS_SIZE, max_str);
             strcat(buf, max_str);
 
-            x = 60, y = y + 30;
+            x = 65, y = y + 20;
             PrintMini(&x, &y, buf, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);  // Progress i/max
 
             Bdisp_Rectangle(63, 98, 320, 118, COLOR_BLACK);
