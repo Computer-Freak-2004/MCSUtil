@@ -1,6 +1,6 @@
-#ifndef MCS_TEST_H
-#define MCS_TEST_H
+#ifndef MCS_CREATEDIRTEST_H
+#define MCS_CREATEDIRTEST_H
 
-void createDirTest(void);
+void createDirTest();
 
 #endif
