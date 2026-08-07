@@ -4,7 +4,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "createDirTest.h"
 #include "mcs_syscalls.h"
 
 void deleteSingleDir() {
@@ -59,7 +58,7 @@ void deleteSingleDir() {
                 MsgBoxPush(3);
 
                 x = 50, y = 60;
-                PrintMini(&x, &y, "Delete this entry?", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
+                PrintMini(&x, &y, "Delete this directory?", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
                 x = 50, y = y + 30;
                 PrintMini(&x, &y, "[EXE] Yes | [EXIT] No", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
 

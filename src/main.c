@@ -50,10 +50,12 @@ int main() {
 
         if (key == KEY_CTRL_DOWN)
             selected = (selected + count + 1) % count;
-        if (key == KEY_CTRL_EXE && selected == 0) // Create Dir test
+        if (key == KEY_CTRL_EXE && selected == 0)  // Create Dir test
             createDirTest();
-        if (key == KEY_CTRL_EXE && selected == 1) // Delete single dir
+        if (key == KEY_CTRL_EXE && selected == 1)  // Delete single dir
             deleteSingleDir();
+        if (key == KEY_CTRL_EXE && selected == 2)  // Delete all dirs
+            deleteAllDirs();
         if (key == KEY_CTRL_EXE && selected == 3) {
             while (1) {
                 Bdisp_AllClr_VRAM();

@@ -2,12 +2,13 @@
 // Enter a name for a MCS Directory and see the result, @ gets added to the front of the input
 // 06.08.2026
 
-#include "mcs_syscalls.h"
 #include <fxcg/display.h>
 #include <fxcg/keyboard.h>
 #include <fxcg/misc.h>
 #include <stdlib.h>
 #include <string.h>
+
+#include "mcs_syscalls.h"
 
 char name[21];
 int rc = -1;
