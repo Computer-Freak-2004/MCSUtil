@@ -17,14 +17,14 @@ int main() {
     Bdisp_EnableColor(1);
 
     char* items[] = {
-        "MCS_CreateDirectory Test",
-        "Delete single MCS directory",
-        "Delete all empty MCS directories",
-        "Directory space usage",
-        "Test Mode",
-        "Help",
-        "About",
-        "Exit"};
+        "MCS_CreateDirectory Test                            ",
+        "Delete single MCS directory                         ",
+        "Delete all empty MCS directories                    ",
+        "Directory space usage                               ",
+        "Test Mode                                           ",
+        "Help                                                ",
+        "About                                               ",
+        "Exit                                                "};
 
     int selected = 0;
     int count = sizeof(items) / sizeof(items[0]);

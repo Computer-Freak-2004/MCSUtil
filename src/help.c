@@ -10,7 +10,7 @@ void help() {
     int key;
 
     const char* text[] = {
-        "This add-in allows for simple ", 
+        "This add-in allows for simple ",
         "management of the MCS or the",
         "Main Content System directories.",
         "All add-ins have an internal name",
@@ -121,8 +121,7 @@ void help() {
         for (int i = 0; i < visible_lines && scroll + i < total_lines; i++) {
             int x = 0;
             int y = 20 + i * 20;
-            PrintMini(&x, &y, text[scroll + i], 0, LCD_WIDTH_PX, 0, 0,
-          COLOR_BLACK, COLOR_WHITE, 1, 0);
+            PrintMini(&x, &y, text[scroll + i], 0, LCD_WIDTH_PX, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
         }
 
         sb.indicatorpos = scroll;

@@ -92,7 +92,6 @@ void deleteSingleDir() {
         x = 0, y += 20;
         PrintMini(&x, &y, "[EXE] Delete Entry | [<] [>] Browse", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
 
-        //Bdisp_PutDisp_DD();
         GetKey(&key);
 
         if (key == KEY_CTRL_EXIT) {
