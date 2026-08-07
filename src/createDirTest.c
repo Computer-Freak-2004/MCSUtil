@@ -2,8 +2,8 @@
 // Enter a name for a MCS Directory and see the result, @ gets added to the front of the input
 // 06.08.2026
 
+#include "mcs_syscalls.h"
 #include <fxcg/display.h>
-#include <fxcg/file.h>
 #include <fxcg/keyboard.h>
 #include <fxcg/misc.h>
 #include <stdlib.h>
@@ -89,8 +89,8 @@ void createDirTest() {
             name[0] = '@';
             strcpy(name + 1, buffer);
 
-            // int dirno;
-            rc = MCS_CreateDirectory((unsigned char*)name);
+            int dirno;
+            rc = MCS_CreateDirectory((unsigned char*)name, &dirno);
 
             itoa(rc, (unsigned char*)result_dec);
             LongToAscHex(rc, (unsigned char*)result_hex, 2);

@@ -7,4 +7,7 @@ In asm.h change:
 /*#define _C_LABEL(x)	
 x*/
 
-SYSCALL(MCS_GetDirectoryEntryByNumber, 0x1533)
+SYSCALL_BARE(MCS_GetDirectoryEntryByNumber, 0x1533)
+SYSCALL_BARE(MCS_CreateDirectory, 0x1515)
+
+SYSCALL_ADDRESS

@@ -3,15 +3,15 @@
 
 typedef struct {
     unsigned char name[8];
-    void *addr;
+    void* addr;
     unsigned short count;
     char flags[2];
 } TMainMemoryDirectoryEntry;
-TMainMemoryDirectoryEntry MainMemoryDirectory[147]; // 0x93
+TMainMemoryDirectoryEntry MainMemoryDirectory[147];  // 0x93
 
 int MCS_GetDirectoryEntryByNumber(
-    int dirno,
-    TMainMemoryDirectoryEntry **pdir
-);
+    int dirno, TMainMemoryDirectoryEntry** pdir);
+
+int MCS_CreateDirectory(unsigned char* dir, char* dirno);
 
 #endif
