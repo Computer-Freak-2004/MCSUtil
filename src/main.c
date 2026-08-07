@@ -6,8 +6,11 @@
 
 #include "createDirTest.h"
 #include "deleteSingleDir.h"
+#include "deleteAllDirs.h"
+#include "openTestMode.h"
 #include "help.h"
 #include "mcs_syscalls.h"
+#include "util.h"
 
 int main() {
     Bdisp_EnableColor(0);
@@ -16,6 +19,8 @@ int main() {
         "MCS_CreateDirectory Test",
         "Delete single MCS directory",
         "Delete all MCS directories",
+        "Directory space usage",
+        "Test Mode",
         "Help",
         "About",
         "Exit"};
@@ -31,7 +36,7 @@ int main() {
         EnableStatusArea(1);
         DisplayStatusArea();
 
-        PrintXY(1,1,"       MCS Utility", 0x20, TEXT_COLOR_BLUE);
+        PrintXY(1, 1, "       MCS Utility", 0x20, TEXT_COLOR_BLUE);
         drawHLine(52);
 
         for (int i = 0; i < count; i++) {
@@ -61,13 +66,18 @@ int main() {
             deleteSingleDir();
         if (key == KEY_CTRL_EXE && selected == 2)  // Delete all dirs
             deleteAllDirs();
-        if (key == KEY_CTRL_EXE && selected == 3) { // Help
+        // if (key == KEY_CTRL_EXE && selected == 3)  // Dir Space usage
+
+        if (key == KEY_CTRL_EXE && selected == 4) {  // Test Mode
+            openTestMode();
+        }
+        if (key == KEY_CTRL_EXE && selected == 5) {  // Help
             help();
         }
-        if (key == KEY_CTRL_EXE && selected == 4) { // About
-            
+        if (key == KEY_CTRL_EXE && selected == 6) {  // About
         }
-        if (key == KEY_CTRL_EXE && selected == 5) {
+
+        if (key == KEY_CTRL_EXE && selected == 7) {
             return 0;
         }
     }

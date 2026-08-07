@@ -17,21 +17,24 @@ void help() {
         "gets created when the add-in",
         "starts.",
         " ",
-        "There can only be a limited number",
-        "of directory entries. If the limit",
+        "There can only be a 147 (0x93)"
+        "directory entries. If the limit",
         "is reached it cannot create a new",
         "MCS directory. That's why add-ins",
         "with new internal names do not",
-        "start if they are ran for the ",
-        "first time.",
-        " ",
+        "start if they are ran for the first",
+        "time. ",
         "This utility helps to fix that.",
         "",
         "  == MCS_CreateDirectory Test =="
         "",
         "You can enter a name and test if",
         "you can create a new MCS",
-        "directory. You see the return",
+        "directory. It's not needed to",
+        "input a '@' symbol at the start",
+        "as this gets automatically added",
+        "to the front of your input. After",
+        "entering you can see the return",
         "code and the meaning of it.",
         "The following return codes are",
         "possible:",
@@ -44,7 +47,23 @@ void help() {
         "delete some of them to allow",
         "add-ins with new internal names",
         "to start again.",
-
+        "",
+        "== Delete single MCS directory =="
+        "",
+        "This allows you to browse the list",
+        "of all directories. Besides the name"
+        "in blue, you can see the number of",
+        "items in each dir and the starting",
+        "address im memory. You can delete",
+        "the currently selected entry by",
+        "pressing [EXE]"
+        "",
+        "== Delete all MCS directories ==",
+        "",
+        "This will delete all 147 directories.",
+        "Make sure you don't have any",
+        "important data stored there as this",
+        "is not reversible.",
     };
 
     int total_lines = sizeof(text) / sizeof(text[0]);
