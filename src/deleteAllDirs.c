@@ -45,6 +45,8 @@ void deleteAllDirs() {
 
             printTitle("Delete all empty MCS_Directories", 35);
 
+            int rc = MCS_GetDirectoryEntryByNumber(i, &dir);
+
             char buf[64];
             strcpy(buf, "Deleting ");
             strcat(buf, dir->name);
@@ -69,12 +71,12 @@ void deleteAllDirs() {
 
             Bdisp_Rectangle(63, 98, 318, 118, COLOR_BLACK);
             ProgressBar2("", i, MCS_SIZE);
-            Bdisp_PutDisp_DD();
 
-            int rc = MCS_GetDirectoryEntryByNumber(i, &dir);
             if (rc == 0) {
                 MCS_DeleteDirectory(dir->name);
             }
+
+            Bdisp_PutDisp_DD();
         }
     }
 }
