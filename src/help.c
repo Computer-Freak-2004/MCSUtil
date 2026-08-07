@@ -70,7 +70,7 @@ void help() {
         EnableStatusArea(1);
         DisplayStatusArea();
 
-        printTitle("== Help ==", 130);
+        printTitle("Help", 160);
 
         for (int i = 0; i < visible_lines; i++) {
             int x = 0;

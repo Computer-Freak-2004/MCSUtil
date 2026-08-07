@@ -12,7 +12,7 @@ void deleteAllDirs() {
 
     EnableStatusArea(1);
     DisplayStatusArea();
-    printTitle("== Delete all MCS_Directories ==", 30);
+    printTitle("Delete all MCS directories", 60);
 
     int key;
     int confirm = 0;

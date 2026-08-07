@@ -16,7 +16,7 @@ void deleteSingleDir() {
         EnableStatusArea(1);
         DisplayStatusArea();
 
-        printTitle("== Delete single MCS_Directory ==", 25);
+        printTitle("Delete single MCS directory", 55);
 
         int rc = MCS_GetDirectoryEntryByNumber(current, &dir);
 

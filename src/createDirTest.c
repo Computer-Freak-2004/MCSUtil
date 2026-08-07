@@ -69,7 +69,7 @@ void createDirTest() {
         EnableStatusArea(1);
         DisplayStatusArea();
 
-        printTitle("== MCS_CreateDirectory Test ==", 35);
+        printTitle("MCS_CreateDirectory Test", 65);
         printResult();
 
         DisplayMBString((unsigned char*)buffer, start, cursor, 1, 2);

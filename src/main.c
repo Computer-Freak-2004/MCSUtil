@@ -13,10 +13,11 @@ int main() {
     Bdisp_EnableColor(0);
 
     char* items[] = {
-        "CreateDir Test",
-        "Delete single Dir",
-        "Delete all Dirs",
+        "MCS_CreateDirectory Test",
+        "Delete single MCS directory",
+        "Delete all MCS directories",
         "Help",
+        "About",
         "Exit"};
 
     int selected = 0;
@@ -30,8 +31,11 @@ int main() {
         EnableStatusArea(1);
         DisplayStatusArea();
 
+        PrintXY(1,1,"       MCS Utility", 0x20, TEXT_COLOR_BLUE);
+        drawHLine(52);
+
         for (int i = 0; i < count; i++) {
-            int x = 0, y = 20 + i * 20;
+            int x = 0, y = 32 + i * 20;
             char menustr[64];
             if (i == selected) {
                 strcpy(menustr, "> ");
@@ -57,10 +61,13 @@ int main() {
             deleteSingleDir();
         if (key == KEY_CTRL_EXE && selected == 2)  // Delete all dirs
             deleteAllDirs();
-        if (key == KEY_CTRL_EXE && selected == 3) {
+        if (key == KEY_CTRL_EXE && selected == 3) { // Help
             help();
         }
-        if (key == KEY_CTRL_EXE && selected == 4) {
+        if (key == KEY_CTRL_EXE && selected == 4) { // About
+            
+        }
+        if (key == KEY_CTRL_EXE && selected == 5) {
             return 0;
         }
     }
