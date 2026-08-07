@@ -39,9 +39,14 @@ void deleteSingleDir() {
 
         int x = 0, y = 0;
         if (rc == 0) {
+
             x = 0, y += 20;
+            // create null terminated string otherwise there is garbage at the end when using full length
+            char name[9]; 
+            memcpy(name, dir->name, 8);
+            name[8] = '\0';
             if (dir->name[0] != '\0') {
-                PrintMini(&x, &y, dir->name, 0, 0xFFFFFFFF, 0, 0, COLOR_BLUE, COLOR_WHITE, 1, 0);  // Name
+                PrintMini(&x, &y, name, 0, 0xFFFFFFFF, 0, 0, COLOR_BLUE, COLOR_WHITE, 1, 0);  // Name
             } else {
                 PrintMini(&x, &y, "(Empty)", 0, 0xFFFFFFFF, 0, 0, COLOR_LIGHTBLUE, COLOR_WHITE, 1, 0);  // empty Name
             }

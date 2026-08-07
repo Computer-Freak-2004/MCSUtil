@@ -49,7 +49,11 @@ void deleteAllDirs() {
             char buf[64];
             strcpy(buf, "Deleting ");
             if (dir->name[0] != '\0') {
-                strcat(buf, dir->name);
+                // create null terminated string otherwise there is garbage at the end when using full length
+                char name[9]; 
+                memcpy(name, dir->name, 8);
+                name[8] = '\0';
+                strcat(buf, name);
             } else {
                 strcat(buf, "(Empty)");
             }
