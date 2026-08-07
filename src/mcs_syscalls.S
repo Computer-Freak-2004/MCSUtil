@@ -9,5 +9,6 @@ x*/
 
 SYSCALL_BARE(MCS_GetDirectoryEntryByNumber, 0x1533)
 SYSCALL_BARE(MCS_CreateDirectory, 0x1515)
+SYSCALL_BARE(MCS_DeleteDirectory, 0x1516)
 
 SYSCALL_ADDRESS

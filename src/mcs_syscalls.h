@@ -14,4 +14,6 @@ int MCS_GetDirectoryEntryByNumber(
 
 int MCS_CreateDirectory(unsigned char* dir, char* dirno);
 
+int MCS_DeleteDirectory(unsigned char* dir);
+
 #endif
