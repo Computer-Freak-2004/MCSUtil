@@ -6,6 +6,7 @@
 
 #include "createDirTest.h"
 #include "deleteSingleDir.h"
+#include "help.h"
 #include "mcs_syscalls.h"
 
 int main() {
@@ -15,7 +16,7 @@ int main() {
         "CreateDir Test",
         "Delete single Dir",
         "Delete all Dirs",
-        "About",
+        "Help",
         "Exit"};
 
     int selected = 0;
@@ -57,18 +58,7 @@ int main() {
         if (key == KEY_CTRL_EXE && selected == 2)  // Delete all dirs
             deleteAllDirs();
         if (key == KEY_CTRL_EXE && selected == 3) {
-            while (1) {
-                Bdisp_AllClr_VRAM();
-                EnableStatusArea(1);
-                DisplayStatusArea();
-
-                int x = 0, y = 0;
-                PrintMini(&x, &y, "About Text", 0, 0xFFFFFFFF, 0, 0, COLOR_BLUE, COLOR_WHITE, 1, 0);
-                GetKey(&key);
-                if (key == KEY_CTRL_EXIT) {
-                    break;
-                }
-            }
+            help();
         }
         if (key == KEY_CTRL_EXE && selected == 4) {
             return 0;
