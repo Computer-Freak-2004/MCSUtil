@@ -7,10 +7,16 @@ typedef struct {
     unsigned short count;
     char flags[2];
 } TMainMemoryDirectoryEntry;
-//TMainMemoryDirectoryEntry MainMemoryDirectory[147];  // 0x93
 
-int MCS_GetDirectoryEntryByNumber(
-    int dirno, TMainMemoryDirectoryEntry** pdir);
+typedef struct {
+    unsigned char name[8];
+    int offset;
+    int length;
+    char flags[4];
+} TItemEntry;
+// TMainMemoryDirectoryEntry MainMemoryDirectory[147];  // 0x93
+
+int MCS_GetDirectoryEntryByNumber(int dirno, TMainMemoryDirectoryEntry** pdir);
 
 int MCS_CreateDirectory(unsigned char* dir, char* dirno);
 

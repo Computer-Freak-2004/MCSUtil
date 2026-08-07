@@ -47,10 +47,10 @@ void deleteSingleDir() {
 
         char buffer[32];
         char current_str[16];
-        
+
         x = 0, y += 20;
         itoa(current, (unsigned char*)current_str);
-        
+
         strcpy(buffer, current_str);
         strcat(buffer, " / ");
         strcat(buffer, "147");
@@ -94,7 +94,47 @@ void deleteSingleDir() {
             MsgBoxPop();
 
             if (confirm) {
-                MCS_DeleteDirectory(dir->name);
+                int rc = MCS_DeleteDirectory(dir->name);
+                if (rc == 0x45) {  // directory not empty
+                    TItemEntry* items = (TItemEntry*)dir->addr;
+                    int x = 0, y = 0;
+                    // PrintMini(&x, &y, "Not empty", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
+                    for (int i = 0; i < dir->count; i++) {  // delete all items
+                        x = 20, y += 20;
+                        // PrintMini(&x, &y, items[i].name, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
+                        rc = MCSDelVar2(dir->name, items[i].name);
+                    }
+                    int rc = MCS_DeleteDirectory(dir->name);  // delete empty dir now
+                    // GetKey(&key);
+                } else if (rc == 0x46) {  // system dirs can't be deleted
+                    MsgBoxPush(3);
+                    while (1) {
+                        int x = 50, y = 50;
+                        PrintMini(&x, &y, "Error!", 0, 0xFFFFFFFF, 0, 0, COLOR_RED, COLOR_WHITE, 1, 0);
+                        x = 50, y += 20;
+                        PrintMini(&x, &y, "System dir can't be deleted.", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
+                        x = 50, y = y += 30;
+                        PrintMini(&x, &y, "[EXE] OK", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
+
+                        GetKey(&key);
+                        if (key == KEY_CTRL_EXE) break;
+                    }
+                    MsgBoxPop();
+                } else if (rc == 0xF0 || rc == 0x40) {  // empty dir / nonexistent dir
+                    MsgBoxPush(3);
+                    while (1) {
+                        int x = 50, y = 50;
+                        PrintMini(&x, &y, "Error!", 0, 0xFFFFFFFF, 0, 0, COLOR_RED, COLOR_WHITE, 1, 0);
+                        x = 50, y += 20;
+                        PrintMini(&x, &y, "Dir is empty or doesn't exist.", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
+                        x = 50, y = y += 30;
+                        PrintMini(&x, &y, "[EXE] OK", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
+
+                        GetKey(&key);
+                        if (key == KEY_CTRL_EXE) break;
+                    }
+                    MsgBoxPop();
+                }
             }
         }
     }

@@ -12,15 +12,15 @@ void deleteAllDirs() {
 
     EnableStatusArea(1);
     DisplayStatusArea();
-    printTitle("Delete all MCS directories", 60);
+    printTitle("Delete all empty MCS directories", 35);
 
     int key;
     int confirm = 0;
     MsgBoxPush(3);
     while (1) {
-        int x = 50, y = 60;
-        PrintMini(&x, &y, "Delete ALL directories?", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
-        x = 50, y = y + 30;
+        int x = 45, y = 60;
+        PrintMini(&x, &y, "Delete ALL empty directories?", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
+        x = 45, y = y + 30;
         PrintMini(&x, &y, "[EXE] Yes | [EXIT] No", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
 
         Bdisp_PutDisp_DD();
@@ -43,7 +43,7 @@ void deleteAllDirs() {
             EnableStatusArea(1);
             DisplayStatusArea();
 
-            printTitle("== Delete all MCS_Directories ==", 30);
+            printTitle("Delete all empty MCS_Directories", 35);
 
             char buf[64];
             strcpy(buf, "Deleting ");

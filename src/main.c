@@ -5,11 +5,11 @@
 #include <string.h>
 
 #include "createDirTest.h"
-#include "deleteSingleDir.h"
 #include "deleteAllDirs.h"
-#include "openTestMode.h"
+#include "deleteSingleDir.h"
 #include "help.h"
 #include "mcs_syscalls.h"
+#include "openTestMode.h"
 #include "util.h"
 
 int main() {
@@ -18,7 +18,7 @@ int main() {
     char* items[] = {
         "MCS_CreateDirectory Test",
         "Delete single MCS directory",
-        "Delete all MCS directories",
+        "Delete all empty MCS directories",
         "Directory space usage",
         "Test Mode",
         "Help",
@@ -77,7 +77,7 @@ int main() {
         if (key == KEY_CTRL_EXE && selected == 6) {  // About
         }
 
-        if (key == KEY_CTRL_EXE && selected == 7) {
+        if (key == KEY_CTRL_EXE && selected == 7) {  // Exit
             return 0;
         }
     }
