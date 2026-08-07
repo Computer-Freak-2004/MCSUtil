@@ -70,6 +70,20 @@ void help() {
         "that are empty. This is useful for",
         "quickly making space when the dir",
         "space is exhausted.",
+        "",
+        " == Directory space usage ==",
+        "Show the currently used amount ",
+        "out of 147 directories. It's ",
+        "recommended to delete directories",
+        "when going near 100% usage.",
+        "",
+        "      == Test Mode ==",
+        "A secret menu that is usually",
+        "accessed by like this: Power",
+        "off the calculator. Hold",
+        "[OPTN] + [x10^] + [AC/ON] ",
+        "together. Then on the popup enter",
+        "the sequence 5, 9, 6, 3."
     };
 
     int total_lines = sizeof(text) / sizeof(text[0]);
@@ -100,7 +114,7 @@ void help() {
         for (int i = 0; i < visible_lines; i++) {
             int x = 0;
             int y = 20 + i * 20;
-            PrintMini(&x, &y, text[scroll + i], 0, 360, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
+            PrintMini(&x, &y, text[scroll + i], 0, 1, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
         }
 
         sb.indicatorpos = scroll;
