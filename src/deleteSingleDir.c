@@ -39,10 +39,9 @@ void deleteSingleDir() {
 
         int x = 0, y = 0;
         if (rc == 0) {
-
             x = 0, y += 20;
             // create null terminated string otherwise there is garbage at the end when using full length
-            char name[9]; 
+            char name[9];
             memcpy(name, dir->name, 8);
             name[8] = '\0';
             if (dir->name[0] != '\0') {
@@ -133,18 +132,11 @@ void deleteSingleDir() {
             if (confirm) {
                 int rc = MCS_DeleteDirectory(dir->name);
                 if (rc == 0x45) {  // directory not empty
-                    int x = 0, y = 0;
-                    int count = dir->count;  // save orig count
-                    // PrintMini(&x, &y, "Not empty", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
-                    for (int i = 0; i < count; i++) {  // delete all items
-                        MCS_GetDirectoryEntryByNumber(current, &dir);
-                        TItemEntry* item = (TItemEntry*)dir->addr;
-
-                        // x = 20, y += 20;
-                        // PrintMini(&x, &y, item->name, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
-                        rc = MCSDelVar2(dir->name, item->name);
+                    TItemEntry* items = (TItemEntry*)dir->addr;
+                    for (int i = dir->count - 1; i >= 0; i--) {
+                        MCSDelVar2(dir->name, items[i].name);
                     }
-                    int rc = MCS_DeleteDirectory(dir->name);  // delete empty dir now
+                    MCS_DeleteDirectory(dir->name);  // delete empty dir now
                 } else if (rc == 0x46) {
                     errorMsg("Error 0x46!", "System dir can't be deleted.");
                 } else if (rc == 0xF0) {
