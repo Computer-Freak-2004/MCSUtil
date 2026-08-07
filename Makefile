@@ -37,7 +37,7 @@ MKG3AFLAGS := -n basic:"MCS Util" -n internal:"" -i uns:../unselected.bmp -i sel
 # any trouble without LTO enabled.
 CFLAGS	= -Os -Wall $(MACHDEP) $(INCLUDE) -ffunction-sections -fdata-sections
 CXXFLAGS	=	$(CFLAGS) -fno-exceptions
-
+ASFLAGS += -Ic:$(INCLUDE)
 LDFLAGS	= $(MACHDEP) -T$(FXCGSDK)/toolchain/prizm.x -Wl,-static -Wl,-gc-sections
 
 #---------------------------------------------------------------------------------

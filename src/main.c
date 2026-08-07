@@ -6,6 +6,7 @@
 #include <string.h>
 
 #include "createDirTest.h"
+#include "mcs_syscalls.h"
 
 int main() {
     Bdisp_EnableColor(0);
@@ -55,6 +56,20 @@ int main() {
         }
 
         if (key == KEY_CTRL_EXE && selected == 1) {
+            while (1) {
+                Bdisp_AllClr_VRAM();
+                EnableStatusArea(1);
+                DisplayStatusArea();
+                TMainMemoryDirectoryEntry* dir;
+                int rc = MCS_GetDirectoryEntryByNumber(1, &dir);
+
+                int x = 0, y = 0;
+                PrintMini(&x, &y, dir->name, 0, 0xFFFFFFFF, 0, 0, COLOR_BLUE, COLOR_WHITE, 1, 0);
+                GetKey(&key);
+                if (key == KEY_CTRL_EXIT) {
+                    break;
+                }
+            }
         }
         if (key == KEY_CTRL_EXE && selected == 3) {
             while (1) {
