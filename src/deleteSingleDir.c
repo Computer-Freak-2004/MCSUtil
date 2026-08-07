@@ -33,21 +33,28 @@ void deleteSingleDir() {
 
             x = 0, y += 20;
             PrintMini(&x, &y, buffer, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);  // Count
+
+            x = 0, y += 20;
+            memset(buffer, 64, 0);
+            char addr_str;
+            LongToAscHex(dir->addr, addr_str, 8);
+            strcpy(buffer, "Address: 0x");
+            strcat(buffer, addr_str);
+            PrintMini(&x, &y, buffer, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);  // Count
         }
 
-        char buf[16];
-        itoa(rc, (unsigned char*)buf);
         x = 0, y = 130;
-        PrintMini(&x, &y, buf, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);  // Return Code
 
-        memset(buf, 0, 16);
+        char buffer[32];
+        char current_str[16];
+        
         x = 0, y += 20;
-        itoa(current, (unsigned char*)buf);
-
-        char num_str[32];
-        strcpy(num_str, "No: ");
-        strcat(num_str, buf);
-        PrintMini(&x, &y, num_str, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);  // Dir Num
+        itoa(current, (unsigned char*)current_str);
+        
+        strcpy(buffer, current_str);
+        strcat(buffer, " / ");
+        strcat(buffer, "147");
+        PrintMini(&x, &y, buffer, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);  // Dir Num
 
         x = 0, y += 20;
         PrintMini(&x, &y, "[EXE] Delete Entry | [<] [>] Browse", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);

@@ -13,7 +13,7 @@
 #include "util.h"
 
 int main() {
-    Bdisp_EnableColor(0);
+    Bdisp_EnableColor(1);
 
     char* items[] = {
         "MCS_CreateDirectory Test",

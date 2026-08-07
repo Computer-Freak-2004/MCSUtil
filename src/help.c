@@ -11,13 +11,14 @@ void help() {
 
     char* text[] = {
         "Allows simple management of MCS ",
+        "or the Main Content System",
         "directories. All add-ins have an",
         "internal name (@SOMETHING) and a",
         "MCS directory with the same name",
         "gets created when the add-in",
         "starts.",
         " ",
-        "There can only be a 147 (0x93)"
+        "There can only be a 147 (0x93)",
         "directory entries. If the limit",
         "is reached it cannot create a new",
         "MCS directory. That's why add-ins",
@@ -51,12 +52,12 @@ void help() {
         "== Delete single MCS directory =="
         "",
         "This allows you to browse the list",
-        "of all directories. Besides the name"
+        "of all directories. Besides the name",
         "in blue, you can see the number of",
         "items in each dir and the starting",
         "address im memory. You can delete",
         "the currently selected entry by",
-        "pressing [EXE]"
+        "pressing [EXE].",
         "",
         "== Delete all MCS directories ==",
         "",

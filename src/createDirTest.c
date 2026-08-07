@@ -33,7 +33,7 @@ void printResult() {
         PrintMini(&x, &y, result, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
         x = 0, y = 80;
         if (rc == 0) {
-            PrintMini(&x, &y, "Success", 0, 0xFFFFFFFF, 0, 0, COLOR_GREEN, COLOR_WHITE, 1, 0);
+            PrintMini(&x, &y, "Success", 0, 0xFFFFFFFF, 0, 0, COLOR_LIME, COLOR_WHITE, 1, 0);
         } else if (rc == 0x42) {
             PrintMini(&x, &y, "Already exists", 0, 0xFFFFFFFF, 0, 0, COLOR_ORANGE, COLOR_WHITE, 1, 0);
         } else if (rc == 0x43) {
