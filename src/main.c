@@ -56,18 +56,46 @@ int main() {
         }
 
         if (key == KEY_CTRL_EXE && selected == 1) {
+            TMainMemoryDirectoryEntry* dir;
+            int current = 1;
+            int key;
             while (1) {
                 Bdisp_AllClr_VRAM();
                 EnableStatusArea(1);
                 DisplayStatusArea();
-                TMainMemoryDirectoryEntry* dir;
-                int rc = MCS_GetDirectoryEntryByNumber(1, &dir);
 
-                int x = 0, y = 0;
-                PrintMini(&x, &y, dir->name, 0, 0xFFFFFFFF, 0, 0, COLOR_BLUE, COLOR_WHITE, 1, 0);
+                int rc = MCS_GetDirectoryEntryByNumber(current, &dir);
+
+                if (rc == 0) {
+                    int x = 0, y = 0;
+                    PrintMini(&x, &y, dir->name, 0, 0xFFFFFFFF, 0, 0, COLOR_BLUE, COLOR_WHITE, 1, 0);
+                }
+
+                char buf[16];
+                itoa(rc, (unsigned char*)buf);
+                int x = 0, y = 130;
+                PrintMini(&x, &y, buf, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
+
+                memset(buf, 0, 16);
+                y += 20;
+                itoa(current, (unsigned char*)buf);
+                PrintMini(&x, &y, buf, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
+
+                Bdisp_PutDisp_DD();
                 GetKey(&key);
+
+                // TODO: Add delete
+
                 if (key == KEY_CTRL_EXIT) {
                     break;
+                }
+                if (key == KEY_CTRL_LEFT) {
+                    if (current > 1)
+                        current--;
+                }
+                if (key == KEY_CTRL_RIGHT) {
+                    if (current < 0x93)
+                        current++;
                 }
             }
         }
