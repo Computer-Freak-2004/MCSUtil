@@ -5,13 +5,19 @@
 #include <string.h>
 
 #include "mcs_syscalls.h"
+#include "util.h"
 
 void deleteAllDirs() {
+    Bdisp_AllClr_VRAM();
+
+    EnableStatusArea(1);
+    DisplayStatusArea();
+    printTitle("== Delete all MCS_Directories ==", 30);
+
     int key;
-
+    int confirm = 0;
+    MsgBoxPush(3);
     while (1) {
-        MsgBoxPush(3);
-
         int x = 50, y = 60;
         PrintMini(&x, &y, "Delete ALL directories?", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
         x = 50, y = y + 30;
@@ -22,47 +28,53 @@ void deleteAllDirs() {
         GetKey(&key);
 
         if (key == KEY_CTRL_EXE) {
-            MsgBoxPop();
-            TMainMemoryDirectoryEntry* dir;
-            for (int i = 1; i < 0x93; i++) {
-                Bdisp_AllClr_VRAM();
-
-                EnableStatusArea(1);
-                DisplayStatusArea();
-
-                char buf[64];
-                strcpy(buf, "Deleting ");
-                strcat(buf, dir->name);
-
-                int x = 50, y = 30;
-                PrintMini(&x, &y, buf, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
-
-                memset(buf, 0, 64);
-
-                char i_str[16];
-                itoa(i, i_str);
-                strcpy(buf, i_str);
-
-                strcat(buf, "/");
-
-                char max_str[16];
-                itoa(0x93, max_str);
-                strcat(buf, max_str);
-
-                x = 50, y = y + 30;
-                PrintMini(&x, &y, buf, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
-
-                ProgressBar2("", i, 0x93);
-                Bdisp_PutDisp_DD();
-
-                int rc = MCS_GetDirectoryEntryByNumber(i, &dir);
-                if (rc == 0) {
-                    MCS_DeleteDirectory(dir->name);
-                }
-            }
+            confirm = 1;
             break;
-
         } else if (key == KEY_CTRL_EXIT)
             break;
+    }
+
+    MsgBoxPop();
+    if (confirm) {
+        TMainMemoryDirectoryEntry* dir;
+        for (int i = 1; i < 0x93; i++) {
+            Bdisp_AllClr_VRAM();
+
+            EnableStatusArea(1);
+            DisplayStatusArea();
+
+            printTitle("== Delete all MCS_Directories ==", 30);
+
+            char buf[64];
+            strcpy(buf, "Deleting ");
+            strcat(buf, dir->name);
+
+            int x = 60, y = 30;
+            PrintMini(&x, &y, buf, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);  // Name
+
+            memset(buf, 0, 64);
+
+            char i_str[16];
+            itoa(i, i_str);
+            strcpy(buf, i_str);
+
+            strcat(buf, "/");
+
+            char max_str[16];
+            itoa(0x93, max_str);
+            strcat(buf, max_str);
+
+            x = 60, y = y + 30;
+            PrintMini(&x, &y, buf, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);  // Progress i/max
+
+            Bdisp_Rectangle(63, 98, 318, 118, COLOR_BLACK);
+            ProgressBar2("", i, 0x93);
+            Bdisp_PutDisp_DD();
+
+            int rc = MCS_GetDirectoryEntryByNumber(i, &dir);
+            if (rc == 0) {
+                MCS_DeleteDirectory(dir->name);
+            }
+        }
     }
 }

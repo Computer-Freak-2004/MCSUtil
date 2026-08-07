@@ -7,7 +7,7 @@ typedef struct {
     unsigned short count;
     char flags[2];
 } TMainMemoryDirectoryEntry;
-TMainMemoryDirectoryEntry MainMemoryDirectory[147];  // 0x93
+//TMainMemoryDirectoryEntry MainMemoryDirectory[147];  // 0x93
 
 int MCS_GetDirectoryEntryByNumber(
     int dirno, TMainMemoryDirectoryEntry** pdir);
