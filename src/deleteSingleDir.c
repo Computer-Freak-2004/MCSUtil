@@ -7,6 +7,23 @@
 #include "mcs_syscalls.h"
 #include "util.h"
 
+void errorMsg(char* errorcode, char* msg) {
+    int key;
+    MsgBoxPush(3);
+    while (1) {
+        int x = 50, y = 50;
+        PrintMini(&x, &y, errorcode, 0, 0xFFFFFFFF, 0, 0, COLOR_RED, COLOR_WHITE, 1, 0);
+        x = 50, y += 20;
+        PrintMini(&x, &y, msg, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
+        x = 50, y = y += 30;
+        PrintMini(&x, &y, "[EXE] OK", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
+
+        GetKey(&key);
+        if (key == KEY_CTRL_EXE) break;
+    }
+    MsgBoxPop();
+}
+
 void deleteSingleDir() {
     TMainMemoryDirectoryEntry* dir;
     int current = 1;
@@ -106,34 +123,14 @@ void deleteSingleDir() {
                     }
                     int rc = MCS_DeleteDirectory(dir->name);  // delete empty dir now
                     // GetKey(&key);
-                } else if (rc == 0x46) {  // system dirs can't be deleted
-                    MsgBoxPush(3);
-                    while (1) {
-                        int x = 50, y = 50;
-                        PrintMini(&x, &y, "Error!", 0, 0xFFFFFFFF, 0, 0, COLOR_RED, COLOR_WHITE, 1, 0);
-                        x = 50, y += 20;
-                        PrintMini(&x, &y, "System dir can't be deleted.", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
-                        x = 50, y = y += 30;
-                        PrintMini(&x, &y, "[EXE] OK", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
-
-                        GetKey(&key);
-                        if (key == KEY_CTRL_EXE) break;
-                    }
-                    MsgBoxPop();
-                } else if (rc == 0xF0 || rc == 0x40) {  // empty dir / nonexistent dir
-                    MsgBoxPush(3);
-                    while (1) {
-                        int x = 50, y = 50;
-                        PrintMini(&x, &y, "Error!", 0, 0xFFFFFFFF, 0, 0, COLOR_RED, COLOR_WHITE, 1, 0);
-                        x = 50, y += 20;
-                        PrintMini(&x, &y, "Dir is empty or doesn't exist.", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
-                        x = 50, y = y += 30;
-                        PrintMini(&x, &y, "[EXE] OK", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
-
-                        GetKey(&key);
-                        if (key == KEY_CTRL_EXE) break;
-                    }
-                    MsgBoxPop();
+                } else if (rc == 0x46) {
+                    errorMsg("Error 0x46!", "System dir can't be deleted.");
+                } else if (rc == 0xF0) { 
+                    errorMsg("Error 0xF0!", "Dir is empty.");
+                } else if (rc == 0x40) {
+                    errorMsg("Error 0x40!", "Dir doesn't exist.");
+                } else if (rc == 0x47) {
+                    errorMsg("Error 0x47!", "Certain dir flags are set.");
                 }
             }
         }
