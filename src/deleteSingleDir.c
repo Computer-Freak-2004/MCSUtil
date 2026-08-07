@@ -113,19 +113,21 @@ void deleteSingleDir() {
             if (confirm) {
                 int rc = MCS_DeleteDirectory(dir->name);
                 if (rc == 0x45) {  // directory not empty
-                    TItemEntry* items = (TItemEntry*)dir->addr;
                     int x = 0, y = 0;
+                    int count = dir->count;  // save orig count
                     // PrintMini(&x, &y, "Not empty", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
-                    for (int i = 0; i < dir->count; i++) {  // delete all items
-                        x = 20, y += 20;
-                        // PrintMini(&x, &y, items[i].name, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
-                        rc = MCSDelVar2(dir->name, items[i].name);
+                    for (int i = 0; i < count; i++) {  // delete all items
+                        MCS_GetDirectoryEntryByNumber(current, &dir);
+                        TItemEntry* item = (TItemEntry*)dir->addr;
+
+                        // x = 20, y += 20;
+                        // PrintMini(&x, &y, item->name, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
+                        rc = MCSDelVar2(dir->name, item->name);
                     }
                     int rc = MCS_DeleteDirectory(dir->name);  // delete empty dir now
-                    // GetKey(&key);
                 } else if (rc == 0x46) {
                     errorMsg("Error 0x46!", "System dir can't be deleted.");
-                } else if (rc == 0xF0) { 
+                } else if (rc == 0xF0) {
                     errorMsg("Error 0xF0!", "Dir is empty.");
                 } else if (rc == 0x40) {
                     errorMsg("Error 0x40!", "Dir doesn't exist.");

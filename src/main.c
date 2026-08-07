@@ -7,6 +7,7 @@
 #include "createDirTest.h"
 #include "deleteAllDirs.h"
 #include "deleteSingleDir.h"
+#include "dirSpaceUsage.h"
 #include "help.h"
 #include "mcs_syscalls.h"
 #include "openTestMode.h"
@@ -66,7 +67,9 @@ int main() {
             deleteSingleDir();
         if (key == KEY_CTRL_EXE && selected == 2)  // Delete all dirs
             deleteAllDirs();
-        // if (key == KEY_CTRL_EXE && selected == 3)  // Dir Space usage
+        if (key == KEY_CTRL_EXE && selected == 3) {  // Dir Space usage
+           dirSpaceUsage();
+        }
 
         if (key == KEY_CTRL_EXE && selected == 4) {  // Test Mode
             openTestMode();

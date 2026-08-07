@@ -43,7 +43,7 @@ void deleteAllDirs() {
             EnableStatusArea(1);
             DisplayStatusArea();
 
-            printTitle("Delete all empty MCS_Directories", 35);
+            printTitle("Delete all empty MCS Directories", 35);
 
             int rc = MCS_GetDirectoryEntryByNumber(i, &dir);
 
@@ -69,7 +69,7 @@ void deleteAllDirs() {
             x = 60, y = y + 30;
             PrintMini(&x, &y, buf, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);  // Progress i/max
 
-            Bdisp_Rectangle(63, 98, 318, 118, COLOR_BLACK);
+            Bdisp_Rectangle(63, 98, 320, 118, COLOR_BLACK);
             ProgressBar2("", i, MCS_SIZE);
 
             if (rc == 0) {
