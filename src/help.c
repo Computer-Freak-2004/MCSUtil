@@ -127,7 +127,6 @@ void help() {
 
         sb.indicatorpos = scroll;
         Scrollbar(&sb);
-        Bdisp_PutDisp_DD();
 
         GetKey(&key);
         if (key == KEY_CTRL_EXIT) {

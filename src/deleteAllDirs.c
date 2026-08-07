@@ -23,8 +23,6 @@ void deleteAllDirs() {
         x = 45, y = y + 30;
         PrintMini(&x, &y, "[EXE] Yes | [EXIT] No", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
 
-        Bdisp_PutDisp_DD();
-
         GetKey(&key);
 
         if (key == KEY_CTRL_EXE) {
@@ -37,19 +35,24 @@ void deleteAllDirs() {
     MsgBoxPop();
     if (confirm) {
         TMainMemoryDirectoryEntry* dir;
+        Bdisp_AllClr_VRAM();
+        EnableStatusArea(1);
+        DisplayStatusArea();
+        printTitle("Delete all empty MCS Directories", 35);
+
+        HourGlass();
         for (int i = 1; i < MCS_SIZE; i++) {
-            Bdisp_AllClr_VRAM();
-
-            EnableStatusArea(1);
-            DisplayStatusArea();
-
-            printTitle("Delete all empty MCS Directories", 35);
+            fillArea(60, 60, LCD_WIDTH_PX - 80, 45, COLOR_WHITE);
 
             int rc = MCS_GetDirectoryEntryByNumber(i, &dir);
 
             char buf[64];
             strcpy(buf, "Deleting ");
-            strcat(buf, dir->name);
+            if (dir->name[0] != '\0') {
+                strcat(buf, dir->name);
+            } else {
+                strcat(buf, "(Empty)");
+            }
 
             int x = 65, y = 40;
             PrintMini(&x, &y, buf, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);  // Name
@@ -75,8 +78,6 @@ void deleteAllDirs() {
             if (rc == 0) {
                 MCS_DeleteDirectory(dir->name);
             }
-
-            Bdisp_PutDisp_DD();
         }
     }
 }

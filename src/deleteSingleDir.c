@@ -40,7 +40,11 @@ void deleteSingleDir() {
         int x = 0, y = 0;
         if (rc == 0) {
             x = 0, y += 20;
-            PrintMini(&x, &y, dir->name, 0, 0xFFFFFFFF, 0, 0, COLOR_BLUE, COLOR_WHITE, 1, 0);  // Name
+            if (dir->name[0] != '\0') {
+                PrintMini(&x, &y, dir->name, 0, 0xFFFFFFFF, 0, 0, COLOR_BLUE, COLOR_WHITE, 1, 0);  // Name
+            } else {
+                PrintMini(&x, &y, "(Empty)", 0, 0xFFFFFFFF, 0, 0, COLOR_LIGHTBLUE, COLOR_WHITE, 1, 0);  // empty Name
+            }
 
             char buffer[64];
             char count_str[64];
@@ -62,8 +66,8 @@ void deleteSingleDir() {
             x = 0, y += 20;
             char buf[12];
             for (int i = 0; i < 4; i++) {
-                ByteToHex((unsigned char)dir->flags[i], (unsigned char*)&buf[i * 3]); // write 2 hex chars to 0, 3, 6, ...
-                buf[(i * 3) + 2] = ' '; // add space after 2 hex chars
+                ByteToHex((unsigned char)dir->flags[i], (unsigned char*)&buf[i * 3]);  // write 2 hex chars to 0, 3, 6, ...
+                buf[(i * 3) + 2] = ' ';                                                // add space after 2 hex chars
             }
             buf[11] = '\0';
 
@@ -88,7 +92,7 @@ void deleteSingleDir() {
         x = 0, y += 20;
         PrintMini(&x, &y, "[EXE] Delete Entry | [<] [>] Browse", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
 
-        Bdisp_PutDisp_DD();
+        //Bdisp_PutDisp_DD();
         GetKey(&key);
 
         if (key == KEY_CTRL_EXIT) {

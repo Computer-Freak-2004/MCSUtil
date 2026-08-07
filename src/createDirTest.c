@@ -74,8 +74,6 @@ void createDirTest() {
 
         DisplayMBString((unsigned char*)buffer, start, cursor, 1, 2);
 
-        Bdisp_PutDisp_DD();
-
         GetKey(&key);
 
         if (key == KEY_CTRL_EXE) {

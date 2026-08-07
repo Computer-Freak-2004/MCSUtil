@@ -11,8 +11,19 @@ void printTitle(char* str, int x) {
     drawHLine(42);
 }
 
-void drawHLine(int y){
+void drawHLine(int y) {
     for (int x = 0; x < LCD_WIDTH_PX; x++) {
         Bdisp_SetPoint_VRAM(x, y, COLOR_BLACK);
+    }
+}
+
+void fillArea(unsigned x, unsigned y, unsigned w, unsigned h, unsigned short col) {
+    unsigned short* s = (unsigned short*)GetVRAMAddress();
+    s += (y * 384) + x;
+    while (h--) {
+        unsigned w2 = w;
+        while (w2--)
+            *s++ = col;
+        s += 384 - w;
     }
 }
