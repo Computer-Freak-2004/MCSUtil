@@ -1,10 +1,10 @@
-#include "help.h"
-
 #include <fxcg/display.h>
 #include <fxcg/keyboard.h>
 #include <fxcg/misc.h>
 #include <stdlib.h>
 #include <string.h>
+
+#include "util.h"
 
 void help() {
     int key;
@@ -22,14 +22,15 @@ void help() {
         "is reached it cannot create a new",
         "MCS directory. That's why add-ins",
         "with new internal names do not",
-        "start.",
+        "start if they are ran for the ",
+        "first time.",
         " ",
         "This utility helps to fix that.",
         "",
-        " = MCU_CreateDirectory Test ="
+        "  == MCS_CreateDirectory Test =="
         "",
         "You can enter a name and test if",
-        "you can create a new MCU",
+        "you can create a new MCS",
         "directory. You see the return",
         "code and the meaning of it.",
         "The following return codes are",
@@ -69,12 +70,7 @@ void help() {
         EnableStatusArea(1);
         DisplayStatusArea();
 
-        int x = 130, y = 0;
-        PrintMini(&x, &y, "== Help ==", 0, 0xFFFFFFFF, 0, 0, COLOR_BLUE, COLOR_WHITE, 1, 0);
-
-        for (x = 0; x < LCD_WIDTH_PX; x++) {
-            Bdisp_SetPoint_VRAM(x, 42, COLOR_BLACK);
-        }
+        printTitle("== Help ==", 130);
 
         for (int i = 0; i < visible_lines; i++) {
             int x = 0;

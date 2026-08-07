@@ -5,6 +5,7 @@
 #include <string.h>
 
 #include "mcs_syscalls.h"
+#include "util.h"
 
 void deleteSingleDir() {
     TMainMemoryDirectoryEntry* dir;
@@ -14,18 +15,30 @@ void deleteSingleDir() {
         Bdisp_AllClr_VRAM();
         EnableStatusArea(1);
         DisplayStatusArea();
-        int x = 0, y = 0;
+
+        printTitle("== Delete single MCS_Directory ==", 25);
 
         int rc = MCS_GetDirectoryEntryByNumber(current, &dir);
 
+        int x = 0, y = 0;
         if (rc == 0) {
-            PrintMini(&x, &y, dir->name, 0, 0xFFFFFFFF, 0, 0, COLOR_BLUE, COLOR_WHITE, 1, 0);
+            x = 0, y += 20;
+            PrintMini(&x, &y, dir->name, 0, 0xFFFFFFFF, 0, 0, COLOR_BLUE, COLOR_WHITE, 1, 0); // Name
+
+            char buffer[64];
+            char count_str[64];
+            itoa(dir->count, count_str);
+            strcpy(buffer, "Item count: ");
+            strcat(buffer, count_str);
+
+            x = 0, y += 20;
+            PrintMini(&x, &y, buffer, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0); // Count
         }
 
         char buf[16];
         itoa(rc, (unsigned char*)buf);
         x = 0, y = 130;
-        PrintMini(&x, &y, buf, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
+        PrintMini(&x, &y, buf, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0); // Return Code
 
         memset(buf, 0, 16);
         x = 0, y += 20;
@@ -34,7 +47,7 @@ void deleteSingleDir() {
         char num_str[32];
         strcpy(num_str, "No: ");
         strcat(num_str, buf);
-        PrintMini(&x, &y, num_str, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
+        PrintMini(&x, &y, num_str, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0); // Dir Num
 
         x = 0, y += 20;
         PrintMini(&x, &y, "[EXE] Delete Entry | [<] [>] Browse", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);

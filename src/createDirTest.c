@@ -9,6 +9,7 @@
 #include <string.h>
 
 #include "mcs_syscalls.h"
+#include "util.h"
 
 char name[21];
 int rc = -1;
@@ -20,15 +21,6 @@ char* buffer;
 int start = 0;
 int cursor = 0;
 int key;
-
-void printTitle() {
-    int x = 35, y = 0;
-    PrintMini(&x, &y, "== MCS_CreateDirectory Test ==", 0, 0xFFFFFFFF, 0, 0, COLOR_BLUE, COLOR_WHITE, 1, 0);
-
-    for (x = 0; x < LCD_WIDTH_PX; x++) {
-        Bdisp_SetPoint_VRAM(x, 42, COLOR_BLACK);
-    }
-}
 
 void printResult() {
     int x = 0, y = 60;
@@ -77,7 +69,7 @@ void createDirTest() {
         EnableStatusArea(1);
         DisplayStatusArea();
 
-        printTitle();
+        printTitle("== MCS_CreateDirectory Test ==", 35);
         printResult();
 
         DisplayMBString((unsigned char*)buffer, start, cursor, 1, 2);
