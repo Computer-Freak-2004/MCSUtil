@@ -53,11 +53,23 @@ void deleteSingleDir() {
 
             x = 0, y += 20;
             memset(buffer, 64, 0);
-            char addr_str;
+            char addr_str[16];
             LongToAscHex(dir->addr, addr_str, 8);
             strcpy(buffer, "Address: 0x");
             strcat(buffer, addr_str);
-            PrintMini(&x, &y, buffer, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);  // Count
+            PrintMini(&x, &y, buffer, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);  // Address
+
+            x = 0, y += 20;
+            char buf[12];
+            for (int i = 0; i < 4; i++) {
+                ByteToHex((unsigned char)dir->flags[i], (unsigned char*)&buf[i * 3]); // write 2 hex chars to 0, 3, 6, ...
+                buf[(i * 3) + 2] = ' '; // add space after 2 hex chars
+            }
+            buf[11] = '\0';
+
+            strcpy(buffer, "Flags: ");
+            strcat(buffer, buf);
+            PrintMini(&x, &y, buffer, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);  // Flags
         }
 
         x = 0, y = 130;
