@@ -52,7 +52,7 @@ void deleteSingleDir() {
         itoa(current, (unsigned char*)current_str);
 
         strcpy(buffer, current_str);
-        strcat(buffer, " / ");
+        strcat(buffer, "/");
         strcat(buffer, "147");
         PrintMini(&x, &y, buffer, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);  // Dir Num
 
@@ -70,7 +70,7 @@ void deleteSingleDir() {
                 current--;
         }
         if (key == KEY_CTRL_RIGHT) {
-            if (current < 0x93)
+            if (current < MCS_SIZE)
                 current++;
         }
         if (key == KEY_CTRL_EXE) {

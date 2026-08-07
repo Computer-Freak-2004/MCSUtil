@@ -37,7 +37,7 @@ void deleteAllDirs() {
     MsgBoxPop();
     if (confirm) {
         TMainMemoryDirectoryEntry* dir;
-        for (int i = 1; i < 0x93; i++) {
+        for (int i = 1; i < MCS_SIZE; i++) {
             Bdisp_AllClr_VRAM();
 
             EnableStatusArea(1);
@@ -61,14 +61,14 @@ void deleteAllDirs() {
             strcat(buf, "/");
 
             char max_str[16];
-            itoa(0x93, max_str);
+            itoa(MCS_SIZE, max_str);
             strcat(buf, max_str);
 
             x = 60, y = y + 30;
             PrintMini(&x, &y, buf, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);  // Progress i/max
 
             Bdisp_Rectangle(63, 98, 318, 118, COLOR_BLACK);
-            ProgressBar2("", i, 0x93);
+            ProgressBar2("", i, MCS_SIZE);
             Bdisp_PutDisp_DD();
 
             int rc = MCS_GetDirectoryEntryByNumber(i, &dir);

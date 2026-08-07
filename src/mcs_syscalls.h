@@ -14,6 +14,9 @@ typedef struct {
     int length;
     char flags[4];
 } TItemEntry;
+
+#define MCS_SIZE 147
+
 // TMainMemoryDirectoryEntry MainMemoryDirectory[147];  // 0x93
 
 int MCS_GetDirectoryEntryByNumber(int dirno, TMainMemoryDirectoryEntry** pdir);
