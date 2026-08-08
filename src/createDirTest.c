@@ -12,7 +12,7 @@
 #include "util.h"
 
 #define MAX_INPUT_LEN 7
-char name[MAX_INPUT_LEN+1];
+char name[MAX_INPUT_LEN + 1];
 int rc = -1;
 char result_dec[16];
 char result_hex[16];
@@ -26,12 +26,12 @@ static int key;
 void printResult() {
     int x = 0, y = 60;
     if (rc != -1) {  // Input done
-        char result[32];
-        strcpy(result, result_dec);
-        strcat(result, ", 0x");
-        strcat(result, result_hex);
+        itoa(rc, (unsigned char*)result_dec);
+        LongToAscHex(rc, (unsigned char*)result_hex, 2);
+        PrintMini(&x, &y, result_dec, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);  // Return Code
+        PrintMini(&x, &y, ", 0x", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
+        PrintMini(&x, &y, result_hex, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
 
-        PrintMini(&x, &y, result, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0); // Return Code
         x = 0, y = 80;
         if (rc == 0) {
             PrintMini(&x, &y, "Success", 0, 0xFFFFFFFF, 0, 0, COLOR_LIME, COLOR_WHITE, 1, 0);
@@ -42,13 +42,10 @@ void printResult() {
         } else {
             PrintMini(&x, &y, "Failure", 0, 0xFFFFFFFF, 0, 0, COLOR_RED, COLOR_WHITE, 1, 0);
         }
-        char buffer[32];
-        strcpy(buffer, "Input: ");
-        strcat(buffer, name);
 
         x = 0, y = 170;
-
-        PrintMini(&x, &y, buffer, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0); // Entred input
+        PrintMini(&x, &y, "Input: ", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);  // Entered input
+        PrintMini(&x, &y, name, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
     } else if (rc == -1) {  // No input done
         x = 0, y = 170;
         PrintMini(&x, &y, "Input: ", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
@@ -56,7 +53,7 @@ void printResult() {
 }
 
 void createDirTest() {
-    buffer = malloc(MAX_INPUT_LEN+1);
+    buffer = malloc(MAX_INPUT_LEN + 1);
     if (buffer == 0) return;
 
     buffer[0] = '\0';
@@ -89,14 +86,9 @@ void createDirTest() {
 
             int dirno;
             rc = MCS_CreateDirectory2((unsigned char*)name, (char*)&dirno);
-
-            itoa(rc, (unsigned char*)result_dec);
-            LongToAscHex(rc, (unsigned char*)result_hex, 2);
         }
 
         if (key == KEY_CTRL_EXIT) {
-            free(buffer);
-            buffer = 0;
             break;
         }
 

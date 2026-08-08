@@ -32,6 +32,7 @@ void dirSpaceUsage() {
         int percent = (usage * 100) / MCS_SIZE;
 
         char buffer[32];
+
         char usage_str[16];
         char percent_str[16];
         itoa(usage, (unsigned char*)usage_str);
@@ -45,7 +46,7 @@ void dirSpaceUsage() {
         int width = strlen(buffer) * 12;
         int x = (LCD_WIDTH_PX - width) / 2;
         int y = 50;
-        PrintMini(&x, &y, buffer, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
+        PrintMini(&x, &y, buffer, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0); // usage
 
         if (usage == MCS_SIZE) {
             x = 120, y += 20;
@@ -53,12 +54,10 @@ void dirSpaceUsage() {
         }
 
         x = 0, y = 170;
-        memset(buffer, 0, 32);
-        strcpy(buffer, "Total items: ");
         char itemCount_str[32];
         itoa(itemCount, (unsigned char*)itemCount_str);
-        strcat(buffer, itemCount_str);
-        PrintMini(&x, &y, buffer, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
+        PrintMini(&x, &y, "Total items: ", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0); // total Items
+        PrintMini(&x, &y, itemCount_str, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
 
         Bdisp_Rectangle(63, 98, 320, 118, COLOR_BLACK);
         ProgressBar2((unsigned char*)"", usage, MCS_SIZE);

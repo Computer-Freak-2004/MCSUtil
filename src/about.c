@@ -22,22 +22,22 @@ void about() {
 
     int x = 155, y = 50;
     PrintMini(&x, &y, "for Casio fx-CG50", 0, LCD_WIDTH_PX, 0, 0, COLOR_BLUE, COLOR_WHITE, 1, 0);
-    
-    drawHLine(100);
 
-    x = 0, y = 90;
+    drawHLine(95);
+
+    x = 0, y = 85;
     PrintMini(&x, &y, "Created by: Computer_Freak_2004", 0, LCD_WIDTH_PX, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
-    x = 0, y +=20;
+    x = 0, y += 20;
     PrintMini(&x, &y, "Version: @", 0, LCD_WIDTH_PX, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
     PrintMini(&x, &y, GIT_COMMIT, 0, LCD_WIDTH_PX, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
-    x = 0, y +=20;
+    x = 0, y += 20;
     PrintMini(&x, &y, "Date: 06.08. - 08.08.2026", 0, LCD_WIDTH_PX, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
-    x = 0, y +=20;
+    x = 0, y += 20;
     PrintMini(&x, &y, "Buildtime: ", 0, LCD_WIDTH_PX, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
     PrintMini(&x, &y, __DATE__, 0, LCD_WIDTH_PX, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
     PrintMini(&x, &y, " ", 0, LCD_WIDTH_PX, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
     PrintMini(&x, &y, __TIME__, 0, LCD_WIDTH_PX, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
-    x = 0, y +=25;
+    x = 0, y += 30;
     PrintMiniMini(&x, &y, "https://github.com/Computer-Freak-2004/MCSUtil/", 0, TEXT_COLOR_BLUE, 0);
 
     Bdisp_PutDisp_DD();

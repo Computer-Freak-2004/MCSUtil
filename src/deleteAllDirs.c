@@ -16,7 +16,6 @@ void deleteAllDirs() {
     DisplayStatusArea();
     printTitle("Delete all empty directories", 55);
 
-
     int confirm = 0;
     MsgBoxPush(3);
     while (1) {
@@ -48,35 +47,33 @@ void deleteAllDirs() {
 
             int rc = MCS_GetDirectoryEntryByNumber(i, &dir);
 
-            char buf[64];
-            strcpy(buf, "Deleting ");
+            char name[9];
             if (dir->name[0] != '\0') {
                 // create null terminated string otherwise there is garbage at the end when using full length
-                char name[9]; 
                 memcpy(name, dir->name, 8);
                 name[8] = '\0';
-                strcat(buf, name);
+
             } else {
-                strcat(buf, "(Empty)");
+                strcpy(name, "(Empty)");
             }
 
             int x = 65, y = 40;
-            PrintMini(&x, &y, buf, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);  // Name
-
-            memset(buf, 0, 64);
-
-            char i_str[16];
-            itoa(i, (unsigned char*)i_str);
-            strcpy(buf, i_str);
-
-            strcat(buf, "/");
-
-            char max_str[16];
-            itoa(MCS_SIZE, (unsigned char*)max_str);
-            strcat(buf, max_str);
+            PrintMini(&x, &y, "Deleting ", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);  // Name
+            if (strcmp(name, "(Empty)") == 0) {
+                PrintMini(&x, &y, name, 0, 0xFFFFFFFF, 0, 0, COLOR_LIGHTBLUE, COLOR_WHITE, 1, 0);
+            } else {
+                PrintMini(&x, &y, name, 0, 0xFFFFFFFF, 0, 0, COLOR_BLUE, COLOR_WHITE, 1, 0);
+            }
 
             x = 65, y = y + 20;
-            PrintMini(&x, &y, buf, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);  // Progress i/max
+            char i_str[16];
+            itoa(i, (unsigned char*)i_str);
+            char max_str[16];
+            itoa(MCS_SIZE, (unsigned char*)max_str);
+
+            PrintMini(&x, &y, i_str, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);  // Progress i/max
+            PrintMini(&x, &y, "/", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0); 
+            PrintMini(&x, &y, max_str, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
 
             Bdisp_Rectangle(63, 98, 320, 118, COLOR_BLACK);
             ProgressBar2((unsigned char*)"", i, MCS_SIZE);

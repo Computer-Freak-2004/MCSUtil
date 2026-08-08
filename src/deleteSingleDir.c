@@ -1,5 +1,3 @@
-#include "deleteSingleDir.h"
-
 #include <fxcg/display.h>
 #include <fxcg/keyboard.h>
 #include <fxcg/misc.h>
@@ -9,6 +7,7 @@
 
 #include "mcs_syscalls.h"
 #include "util.h"
+#include "deleteSingleDir.h"
 
 int x = 0, y = 0;
 static int key;
@@ -179,22 +178,19 @@ void deleteSingleDir() {
                 PrintMini(&x, &y, "(Empty)", 0, 0xFFFFFFFF, 0, 0, COLOR_LIGHTBLUE, COLOR_WHITE, 1, 0);  // empty Name
             }
 
-            char buffer[64];
+            x = 0, y += 20;
             char count_str[64];
             itoa(dir->count, (unsigned char*)count_str);
-            strcpy(buffer, "Item count: ");
-            strcat(buffer, count_str);
+
+            PrintMini(&x, &y, "Item count: ", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);  // Count
+            PrintMini(&x, &y, count_str, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
 
             x = 0, y += 20;
-            PrintMini(&x, &y, buffer, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);  // Count
-
-            x = 0, y += 20;
-            memset(buffer, 0, 64);
             char addr_str[16];
             LongToAscHex((int)dir->addr, (unsigned char*)addr_str, 8);
-            strcpy(buffer, "Address: 0x");
-            strcat(buffer, addr_str);
-            PrintMini(&x, &y, buffer, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);  // Address
+
+            PrintMini(&x, &y, "Address: 0x", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);  // Address
+            PrintMini(&x, &y, addr_str, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
 
             x = 0, y += 20;
             char flag_str[12];
@@ -204,30 +200,24 @@ void deleteSingleDir() {
             }
             flag_str[11] = '\0';
 
-            strcpy(buffer, "Flags: ");
-            strcat(buffer, flag_str);
-            PrintMini(&x, &y, buffer, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);  // Flags
+            PrintMini(&x, &y, "Flags: ", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);  // Flags
+            PrintMini(&x, &y, flag_str, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
         }
 
         x = 0, y = 130;
 
-        char buffer[32];
-        char current_str[16];
-
         x = 0, y += 20;
+        char current_str[16];
         itoa(current, (unsigned char*)current_str);
 
-        strcpy(buffer, current_str);
-        strcat(buffer, "/");
-        strcat(buffer, "147");
-        PrintMini(&x, &y, buffer, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);  // Dir Num
+        PrintMini(&x, &y, current_str, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);  // Dir Num
+        PrintMini(&x, &y, "/", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0); 
+        PrintMini(&x, &y, "147", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0); 
 
         x = 0, y += 20;
-        
         PrintMini(&x, &y, "[F1] Items | [EXE] Delete | [æ”][æ•] Browse", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
 
         GetKey(&key);
-
         if (key == KEY_CTRL_EXIT) {
             break;
         }
