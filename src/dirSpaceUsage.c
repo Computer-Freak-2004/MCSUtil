@@ -7,6 +7,25 @@
 #include "mcs_syscalls.h"
 #include "util.h"
 
+void checkUsage(int* usage, int* itemCount) {
+    TMainMemoryDirectoryEntry* dir;
+    *usage = 0;
+    *itemCount = 0;
+
+    int emptyDirs = 0;
+    for (int i = 0; i <= MCS_SIZE; i++) {
+        int rc = MCS_GetDirectoryEntryByNumber(i, &dir);
+        if (rc != 0)
+            continue;
+
+        if (dir->name[0] == '\0')
+            emptyDirs++;
+
+        *itemCount += dir->count;
+    }
+    *usage = MCS_SIZE - emptyDirs;
+}
+
 void dirSpaceUsage() {
     int key;
     while (1) {
@@ -15,20 +34,10 @@ void dirSpaceUsage() {
         EnableStatusArea(1);
         DisplayStatusArea();
         printTitle("Directory space usage", 80);
-        TMainMemoryDirectoryEntry* dir;
-        int emptyDirs = 0;
+
+        int usage = 0;
         int itemCount = 0;
-        for (int i = 0; i <= MCS_SIZE; i++) {
-            int rc = MCS_GetDirectoryEntryByNumber(i, &dir);
-            if (rc != 0)
-                continue;
-
-            if (dir->name[0] == '\0')
-                emptyDirs++;
-
-            itemCount += dir->count;
-        }
-        int usage = MCS_SIZE - emptyDirs;
+        checkUsage(&usage, &itemCount);
         int percent = (usage * 100) / MCS_SIZE;
 
         char buffer[32];
@@ -46,7 +55,7 @@ void dirSpaceUsage() {
         int width = strlen(buffer) * 12;
         int x = (LCD_WIDTH_PX - width) / 2;
         int y = 50;
-        PrintMini(&x, &y, buffer, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0); // usage
+        PrintMini(&x, &y, buffer, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);  // usage
 
         if (usage == MCS_SIZE) {
             x = 120, y += 20;
@@ -56,7 +65,7 @@ void dirSpaceUsage() {
         x = 0, y = 170;
         char itemCount_str[32];
         itoa(itemCount, (unsigned char*)itemCount_str);
-        PrintMini(&x, &y, "Total items: ", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0); // total Items
+        PrintMini(&x, &y, "Total items: ", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);  // total Items
         PrintMini(&x, &y, itemCount_str, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
 
         Bdisp_Rectangle(63, 98, 320, 118, COLOR_BLACK);

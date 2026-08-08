@@ -20,8 +20,8 @@ void about() {
 
     PrintXY(1, 2, "          MCS Utility", 0x20, TEXT_COLOR_BLUE);
 
-    int x = 155, y = 50;
-    PrintMini(&x, &y, "for Casio fx-CG50", 0, LCD_WIDTH_PX, 0, 0, COLOR_BLUE, COLOR_WHITE, 1, 0);
+    int x = 138, y = 50;
+    PrintMini(&x, &y, "for Casio fx-CG20/50", 0, LCD_WIDTH_PX, 0, 0, COLOR_BLUE, COLOR_WHITE, 1, 0);
 
     drawHLine(95);
 

@@ -3,6 +3,7 @@
 
 void printTitle(char* str, int x);
 void drawHLine(int y);
-void fillArea(unsigned x,unsigned y,unsigned w,unsigned h,unsigned short col);
+void fillArea(unsigned x, unsigned y, unsigned w, unsigned h, unsigned short col);
+void errorMsg(char* errorcode, char* msg, int errorcolor);
 
 #endif

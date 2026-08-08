@@ -15,6 +15,7 @@
 #include "util.h"
 
 static int key;
+int startup = 0;
 
 int main() {
     Bdisp_EnableColor(1);
@@ -53,6 +54,18 @@ int main() {
                 x = 15;
                 PrintMini(&x, &y, items[i], 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
             }
+        }
+
+        if (startup == 0) {
+            int usage = 0;
+            int itemCount = 0;
+            checkUsage(&usage, &itemCount);
+
+            if (usage == MCS_SIZE) {
+                errorMsg("Directory space full!", "Delete some directories.", COLOR_ORANGE);
+            }
+
+            startup = 1;
         }
 
         GetKey(&key);

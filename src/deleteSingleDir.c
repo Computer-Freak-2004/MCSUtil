@@ -13,22 +13,6 @@ int x = 0, y = 0;
 static int key;
 TMainMemoryDirectoryEntry* dir;
 
-void errorMsg(char* errorcode, char* msg) {
-    MsgBoxPush(3);
-    while (1) {
-        int x = 50, y = 50;
-        PrintMini(&x, &y, errorcode, 0, 0xFFFFFFFF, 0, 0, COLOR_RED, COLOR_WHITE, 1, 0);
-        x = 50, y += 20;
-        PrintMini(&x, &y, msg, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
-        x = 50, y += 30;
-        PrintMini(&x, &y, "[EXE] OK", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
-
-        GetKey(&key);
-        if (key == KEY_CTRL_EXE) break;
-    }
-    MsgBoxPop();
-}
-
 void deleteItem() {
     MsgBoxPush(3);
     int confirm = 0;
@@ -58,20 +42,20 @@ void deleteItem() {
             }
             MCS_DeleteDirectory(dir->name);  // delete empty dir now
         } else if (rc == 0x46) {
-            errorMsg("Error 0x46:", "System dir can't be deleted.");
+            errorMsg("Error 0x46:", "System dir can't be deleted.", COLOR_RED);
         } else if (rc == 0xF0) {
-            errorMsg("Error 0xF0:", "Directory is empty.");
+            errorMsg("Error 0xF0:", "Directory is empty.", COLOR_RED);
         } else if (rc == 0x40) {
-            errorMsg("Error 0x40:", "Directory doesn't exist.");
+            errorMsg("Error 0x40:", "Directory doesn't exist.", COLOR_RED);
         } else if (rc == 0x47) {
-            errorMsg("Error 0x47:", "Certain dir flags are set.");
+            errorMsg("Error 0x47:", "Certain dir flags are set.", COLOR_RED);
         }
     }
 }
 
 void showItems() {
     if (dir->count == 0) {
-        errorMsg("Error: ", "No items in this directory.");
+        errorMsg("Error: ", "No items in this directory.", COLOR_RED);
         return;
     }
 
@@ -144,9 +128,9 @@ void showItems() {
         if (key == KEY_CTRL_EXIT) {
             break;
         }
-        if (key == KEY_CTRL_DOWN && scroll < total_lines - visible_lines)
+        if (key == KEY_CTRL_DOWN && scroll < total_lines - visible_lines) {
             scroll++;
-
+        }
         if (key == KEY_CTRL_UP && scroll > 0) {
             scroll--;
         }
@@ -221,12 +205,10 @@ void deleteSingleDir() {
         if (key == KEY_CTRL_EXIT) {
             break;
         }
-
         if (key == KEY_CTRL_LEFT) {
             if (current > 1)
                 current--;
         }
-
         if (key == KEY_CTRL_DOWN) {
             while (1) {  // find prev valid entry
                 if (current > 1)

@@ -29,3 +29,20 @@ void fillArea(unsigned x, unsigned y, unsigned w, unsigned h, unsigned short col
         s += 384 - w;
     }
 }
+
+void errorMsg(char* errorcode, char* msg, int errorcolor) {
+    int key;
+    MsgBoxPush(3);
+    while (1) {
+        int x = 50, y = 50;
+        PrintMini(&x, &y, errorcode, 0, 0xFFFFFFFF, 0, 0, errorcolor, COLOR_WHITE, 1, 0);
+        x = 50, y += 20;
+        PrintMini(&x, &y, msg, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
+        x = 50, y += 30;
+        PrintMini(&x, &y, "[EXE] OK", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
+
+        GetKey(&key);
+        if (key == KEY_CTRL_EXE) break;
+    }
+    MsgBoxPop();
+}
