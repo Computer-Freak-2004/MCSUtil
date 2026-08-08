@@ -67,21 +67,16 @@ MCS Docs + Syscall Addresses:
 - MCS Structure: https://bible.planet-casio.com/simlo/chm/v20/fx_legacy_MCSstructure.HTM
 - Syscall addresses for CG20+: https://bible.planet-casio.com/simlo/chm/v20/fx_fxCG20_syscalls.htm
 
-Manually added syscalls:
-- `0x1533: int MCS_GetDirectoryEntryByNumber(int dirno, TMainMemoryDirectoryEntry** pdir);`
-- `0x1515: int MCS_CreateDirectory2(unsigned char* dir, char* dirno);`
-- `0x1516: int MCS_DeleteDirectory(unsigned char* dir);`
-
 Syscalls:
 - MCS_CreateDirectory (wrong one): https://prizm.cemetech.net/Syscalls/MCS/MCS_CreateDirectory/
 - MCS_DeleteDirectory: https://prizm.cemetech.net/Syscalls/MCS/MCS_DeleteDirectory/
 - MCSDelVar2: https://prizm.cemetech.net/Syscalls/MCS/MCSDelVar2/
 
-
 General Programming:
 - Printing Text: https://prizm.cemetech.net/Tutorials/Printing_Text/
 - Reading Input: https://prizm.cemetech.net/Tutorials/Reading_Input/
 - Useful Routines: https://prizm.cemetech.net/Useful_Routines/
+- Image Converter: https://www.cemetech.net/sc/
 
 ## Build
 This project requires [PrizmSDK 0.6](https://github.com/Jonimoose/libfxcg).
@@ -100,3 +95,10 @@ with
 ```
 
 Then run `make`.
+
+## Manually added syscalls
+
+Addresses only for fx-CG20/50 (probably won't work on fx-CG10):
+- `0x1533: int MCS_GetDirectoryEntryByNumber(int dirno, TMainMemoryDirectoryEntry** pdir);`
+- `0x1515: int MCS_CreateDirectory2(unsigned char* dir, char* dirno);`
+- `0x1516: int MCS_DeleteDirectory(unsigned char* dir);`
