@@ -42,12 +42,16 @@ void printResult() {
         } else {
             PrintMini(&x, &y, "Failure", 0, 0xFFFFFFFF, 0, 0, COLOR_RED, COLOR_WHITE, 1, 0);
         }
+        char buffer[32];
+        strcpy(buffer, "Input: ");
+        strcat(buffer, name);
 
         x = 0, y = 170;
-        PrintMini(&x, &y, name, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0); // Entred input
+
+        PrintMini(&x, &y, buffer, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0); // Entred input
     } else if (rc == -1) {  // No input done
         x = 0, y = 170;
-        PrintMini(&x, &y, "Enter a name for a MCS dir without @.", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
+        PrintMini(&x, &y, "Input: ", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
     }
 }
 
