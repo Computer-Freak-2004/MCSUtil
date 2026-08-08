@@ -52,7 +52,7 @@ void help() {
         "one entry left or right. [æ’] and [æ“]",
         "go to the prev/next non empty entry.",
         "Besides the name in blue, you can see",
-        "in each dir the number of items, the",
+        "for each dir the number of items, the",
         "starting address of the items in",
         "memory and the flags.",
         "If there are items in the current",
