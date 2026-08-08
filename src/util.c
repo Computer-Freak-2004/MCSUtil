@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "util.h"
+
 void printTitle(char* str, int x) {
     int y = 0;
     PrintMini(&x, &y, str, 0, 0xFFFFFFFF, 0, 0, COLOR_BLUE, COLOR_WHITE, 1, 0);

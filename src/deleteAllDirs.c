@@ -66,20 +66,20 @@ void deleteAllDirs() {
             memset(buf, 0, 64);
 
             char i_str[16];
-            itoa(i, i_str);
+            itoa(i, (unsigned char*)i_str);
             strcpy(buf, i_str);
 
             strcat(buf, "/");
 
             char max_str[16];
-            itoa(MCS_SIZE, max_str);
+            itoa(MCS_SIZE, (unsigned char*)max_str);
             strcat(buf, max_str);
 
             x = 65, y = y + 20;
             PrintMini(&x, &y, buf, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);  // Progress i/max
 
             Bdisp_Rectangle(63, 98, 320, 118, COLOR_BLACK);
-            ProgressBar2("", i, MCS_SIZE);
+            ProgressBar2((unsigned char*)"", i, MCS_SIZE);
 
             if (rc == 0) {
                 MCS_DeleteDirectory(dir->name);

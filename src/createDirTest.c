@@ -57,7 +57,7 @@ void printResult() {
 
 void createDirTest() {
     buffer = malloc(MAX_INPUT_LEN+1);
-    if (buffer == 0) return 1;
+    if (buffer == 0) return;
 
     buffer[0] = '\0';
     memset(buffer, 0, MAX_INPUT_LEN);
@@ -88,7 +88,7 @@ void createDirTest() {
             strcpy(name + 1, buffer);
 
             int dirno;
-            rc = MCS_CreateDirectory((unsigned char*)name, &dirno);
+            rc = MCS_CreateDirectory2((unsigned char*)name, (char*)&dirno);
 
             itoa(rc, (unsigned char*)result_dec);
             LongToAscHex(rc, (unsigned char*)result_hex, 2);

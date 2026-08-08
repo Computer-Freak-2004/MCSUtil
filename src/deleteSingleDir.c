@@ -3,6 +3,7 @@
 #include <fxcg/display.h>
 #include <fxcg/keyboard.h>
 #include <fxcg/misc.h>
+#include <fxcg/file.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -20,7 +21,7 @@ void errorMsg(char* errorcode, char* msg) {
         PrintMini(&x, &y, errorcode, 0, 0xFFFFFFFF, 0, 0, COLOR_RED, COLOR_WHITE, 1, 0);
         x = 50, y += 20;
         PrintMini(&x, &y, msg, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
-        x = 50, y = y += 30;
+        x = 50, y += 30;
         PrintMini(&x, &y, "[EXE] OK", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
 
         GetKey(&key);
@@ -180,7 +181,7 @@ void deleteSingleDir() {
 
             char buffer[64];
             char count_str[64];
-            itoa(dir->count, count_str);
+            itoa(dir->count, (unsigned char*)count_str);
             strcpy(buffer, "Item count: ");
             strcat(buffer, count_str);
 
@@ -188,9 +189,9 @@ void deleteSingleDir() {
             PrintMini(&x, &y, buffer, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);  // Count
 
             x = 0, y += 20;
-            memset(buffer, 64, 0);
+            memset(buffer, 0, 64);
             char addr_str[16];
-            LongToAscHex(dir->addr, addr_str, 8);
+            LongToAscHex((int)dir->addr, (unsigned char*)addr_str, 8);
             strcpy(buffer, "Address: 0x");
             strcat(buffer, addr_str);
             PrintMini(&x, &y, buffer, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);  // Address

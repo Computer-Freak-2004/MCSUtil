@@ -21,7 +21,7 @@ typedef struct {
 
 int MCS_GetDirectoryEntryByNumber(int dirno, TMainMemoryDirectoryEntry** pdir);
 
-int MCS_CreateDirectory(unsigned char* dir, char* dirno);
+int MCS_CreateDirectory2(unsigned char* dir, char* dirno);
 
 int MCS_DeleteDirectory(unsigned char* dir);
 

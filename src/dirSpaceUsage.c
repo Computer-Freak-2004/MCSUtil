@@ -34,8 +34,8 @@ void dirSpaceUsage() {
         char buffer[32];
         char usage_str[16];
         char percent_str[16];
-        itoa(usage, usage_str);
-        itoa(percent, percent_str);
+        itoa(usage, (unsigned char*)usage_str);
+        itoa(percent, (unsigned char*)percent_str);
         strcpy(buffer, usage_str);
         strcat(buffer, "/");
         strcat(buffer, "147 (");
@@ -56,12 +56,12 @@ void dirSpaceUsage() {
         memset(buffer, 0, 32);
         strcpy(buffer, "Total items: ");
         char itemCount_str[32];
-        itoa(itemCount, itemCount_str);
+        itoa(itemCount, (unsigned char*)itemCount_str);
         strcat(buffer, itemCount_str);
         PrintMini(&x, &y, buffer, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
 
         Bdisp_Rectangle(63, 98, 320, 118, COLOR_BLACK);
-        ProgressBar2("", usage, MCS_SIZE);
+        ProgressBar2((unsigned char*)"", usage, MCS_SIZE);
 
         GetKey(&key);
         if (key == KEY_CTRL_EXIT) {
