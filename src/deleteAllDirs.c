@@ -41,7 +41,7 @@ void deleteAllDirs() {
         printTitle("Delete all empty directories", 55);
 
         HourGlass();
-        for (int i = 1; i < MCS_SIZE; i++) {
+        for (int i = 1; i <= MCS_SIZE; i++) {
             fillArea(60, 60, LCD_WIDTH_PX - 80, 45, COLOR_WHITE);
 
             int rc = MCS_GetDirectoryEntryByNumber(i, &dir);

@@ -18,7 +18,7 @@ void dirSpaceUsage() {
         TMainMemoryDirectoryEntry* dir;
         int emptyDirs = 0;
         int itemCount = 0;
-        for (int i = 0; i < MCS_SIZE; i++) {
+        for (int i = 0; i <= MCS_SIZE; i++) {
             int rc = MCS_GetDirectoryEntryByNumber(i, &dir);
             if (rc != 0)
                 continue;
