@@ -5,10 +5,9 @@
 #include <string.h>
 
 #include "util.h"
+static int key;
 
 void help() {
-    int key;
-
     const char* text[] = {
         "This add-in allows for simple ",
         "management of the MCS or the",

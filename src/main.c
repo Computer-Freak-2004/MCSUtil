@@ -10,9 +10,12 @@
 #include "dirSpaceUsage.h"
 #include "openTestMode.h"
 #include "help.h"
+#include "about.h"
 
 #include "mcs_syscalls.h"
 #include "util.h"
+
+static int key;
 
 int main() {
     Bdisp_EnableColor(1);
@@ -29,7 +32,7 @@ int main() {
 
     int selected = 0;
     int count = sizeof(items) / sizeof(items[0]);
-    int key;
+
 
     while (1) {
         Cursor_SetFlashOff();
@@ -78,6 +81,7 @@ int main() {
             help();
         }
         if (key == KEY_CTRL_EXE && selected == 6) {  // About
+            about();
         }
 
         if (key == KEY_CTRL_EXE && selected == 7) {  // Exit

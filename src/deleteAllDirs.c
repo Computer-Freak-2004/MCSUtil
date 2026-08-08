@@ -7,6 +7,8 @@
 #include "mcs_syscalls.h"
 #include "util.h"
 
+static int key;
+
 void deleteAllDirs() {
     Bdisp_AllClr_VRAM();
 
@@ -14,7 +16,7 @@ void deleteAllDirs() {
     DisplayStatusArea();
     printTitle("Delete all empty directories", 55);
 
-    int key;
+
     int confirm = 0;
     MsgBoxPush(3);
     while (1) {
