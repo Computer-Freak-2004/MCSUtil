@@ -68,15 +68,15 @@ void deleteSingleDir() {
             PrintMini(&x, &y, buffer, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);  // Address
 
             x = 0, y += 20;
-            char buf[12];
+            char flag_str[12];
             for (int i = 0; i < 4; i++) {
-                ByteToHex((unsigned char)dir->flags[i], (unsigned char*)&buf[i * 3]);  // write 2 hex chars to 0, 3, 6, ...
-                buf[(i * 3) + 2] = ' ';                                                // add space after 2 hex chars
+                ByteToHex((unsigned char)dir->flags[i], (unsigned char*)&flag_str[i * 3]);  // write 2 hex chars to 0, 3, 6, ...
+                flag_str[(i * 3) + 2] = ' ';                                                // add space after 2 hex chars
             }
-            buf[11] = '\0';
+            flag_str[11] = '\0';
 
             strcpy(buffer, "Flags: ");
-            strcat(buffer, buf);
+            strcat(buffer, flag_str);
             PrintMini(&x, &y, buffer, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);  // Flags
         }
 
