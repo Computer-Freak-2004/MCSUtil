@@ -8,18 +8,19 @@
 #include "deleteAllDirs.h"
 #include "deleteSingleDir.h"
 #include "dirSpaceUsage.h"
-#include "help.h"
-#include "mcs_syscalls.h"
 #include "openTestMode.h"
+#include "help.h"
+
+#include "mcs_syscalls.h"
 #include "util.h"
 
 int main() {
     Bdisp_EnableColor(1);
 
     char* items[] = {
-        "MCS_CreateDirectory Test                            ",
-        "Delete single MCS directory                         ",
-        "Delete all empty MCS directories                    ",
+        "Create Directory Test                               ",
+        "Delete single directory                             ",
+        "Delete all empty directories                        ",
         "Directory space usage                               ",
         "Test Mode                                           ",
         "Help                                                ",
@@ -38,10 +39,10 @@ int main() {
         DisplayStatusArea();
 
         PrintXY(1, 1, "       MCS Utility", 0x20, TEXT_COLOR_BLUE);
-        drawHLine(52);
+        drawHLine(50);
 
         for (int i = 0; i < count; i++) {
-            int x = 0, y = 32 + i * 20;
+            int x = 0, y = 30 + i * 20;
             char menustr[64];
             if (i == selected) {
                 strcpy(menustr, "> ");

@@ -12,7 +12,7 @@ void deleteAllDirs() {
 
     EnableStatusArea(1);
     DisplayStatusArea();
-    printTitle("Delete all empty MCS directories", 35);
+    printTitle("Delete all empty directories", 55);
 
     int key;
     int confirm = 0;
@@ -38,7 +38,7 @@ void deleteAllDirs() {
         Bdisp_AllClr_VRAM();
         EnableStatusArea(1);
         DisplayStatusArea();
-        printTitle("Delete all empty MCS Directories", 35);
+        printTitle("Delete all empty directories", 55);
 
         HourGlass();
         for (int i = 1; i < MCS_SIZE; i++) {

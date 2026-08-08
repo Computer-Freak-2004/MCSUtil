@@ -52,11 +52,11 @@ void printResult() {
 }
 
 void createDirTest() {
-    buffer = malloc(20);
+    buffer = malloc(MAX_INPUT_LEN+1);
     if (buffer == 0) return 1;
 
     buffer[0] = '\0';
-    memset(buffer, 0, 21);
+    memset(buffer, 0, MAX_INPUT_LEN);
 
     start = 0;
     cursor = 0;
@@ -70,10 +70,12 @@ void createDirTest() {
         EnableStatusArea(1);
         DisplayStatusArea();
 
-        printTitle("MCS_CreateDirectory Test", 65);
+        printTitle("Create Directory Test", 85);
         printResult();
 
-        DisplayMBString((unsigned char*)buffer, start, cursor, 1, 2);
+        PrintXY(1, 2, "  Name: @", 0, TEXT_COLOR_BLACK);
+        DisplayMBString((unsigned char*)buffer, start, cursor, 8, 2);
+        Bdisp_Rectangle(104, 20, 260, 50, COLOR_BLACK);
 
         GetKey(&key);
 

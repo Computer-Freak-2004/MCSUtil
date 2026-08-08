@@ -33,7 +33,7 @@ void deleteSingleDir() {
         EnableStatusArea(1);
         DisplayStatusArea();
 
-        printTitle("Delete single MCS directory", 55);
+        printTitle("Delete single directory", 75);
 
         int rc = MCS_GetDirectoryEntryByNumber(current, &dir);
 

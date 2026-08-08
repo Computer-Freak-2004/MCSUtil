@@ -29,7 +29,7 @@ void help() {
         "add-in doesn't start.",
         "This utility helps to fix that.",
         "",
-        "    == MCS_CreateDirectory Test ==",
+        "     == Create Directory Test ==",
         "You can enter a name and test if you ",
         "can create a new MCS directory. ",
         "The '@' symbol gets automatically",
@@ -47,7 +47,7 @@ void help() {
         "with new internal names to start",
         "again.",
         "",
-        "   == Delete single MCS directory ==",
+        "      == Delete single directory ==",
         "This allows you to browse the list",
         "of all directories. Besides the name",
         "in blue, you can see the number of",
@@ -65,7 +65,7 @@ void help() {
         "- 0x46: Undeletable system dir ",
         "- 0x47: Certain flags are set",
         "",
-        "    == Delete all MCS directories ==",
+        "       == Delete all directories ==",
         "This will delete all directories",
         "that are empty. This is useful for",
         "quickly making space when the dir",
@@ -106,7 +106,7 @@ void help() {
     sb.barleft = 378;
     sb.bartop = 20;
     sb.barheight = 170;
-    sb.barwidth = 5;
+    sb.barwidth = 6;
 
     Scrollbar(&sb);
 
