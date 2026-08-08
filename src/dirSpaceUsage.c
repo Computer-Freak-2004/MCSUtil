@@ -17,6 +17,7 @@ void dirSpaceUsage() {
         printTitle("Directory space usage", 80);
         TMainMemoryDirectoryEntry* dir;
         int emptyDirs = 0;
+        int itemCount = 0;
         for (int i = 0; i < MCS_SIZE; i++) {
             int rc = MCS_GetDirectoryEntryByNumber(i, &dir);
             if (rc != 0)
@@ -24,6 +25,8 @@ void dirSpaceUsage() {
 
             if (dir->name[0] == '\0')
                 emptyDirs++;
+
+            itemCount += dir->count;
         }
         int usage = MCS_SIZE - emptyDirs;
         int percent = (usage * 100) / MCS_SIZE;
@@ -48,6 +51,14 @@ void dirSpaceUsage() {
             x = 120, y += 20;
             PrintMini(&x, &y, "No space left!", 0, 0xFFFFFFFF, 0, 0, COLOR_RED, COLOR_WHITE, 1, 0);
         }
+
+        x = 0, y = 170;
+        memset(buffer, 0, 32);
+        strcpy(buffer, "Total items: ");
+        char itemCount_str[32];
+        itoa(itemCount, itemCount_str);
+        strcat(buffer, itemCount_str);
+        PrintMini(&x, &y, buffer, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
 
         Bdisp_Rectangle(63, 98, 320, 118, COLOR_BLACK);
         ProgressBar2("", usage, MCS_SIZE);
