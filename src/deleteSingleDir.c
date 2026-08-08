@@ -177,12 +177,12 @@ void deleteSingleDir() {
             PrintMini(&x, &y, addr_str, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
 
             x = 0, y += 20;
-            char flag_str[12];
-            for (int i = 0; i < 4; i++) {
-                ByteToHex((unsigned char)dir->flags[i], (unsigned char*)&flag_str[i * 3]);  // write 2 hex chars to 0, 3, 6, ...
+            char flag_str[7];
+            for (int i = 0; i < 2; i++) {
+                ByteToHex((unsigned char)dir->flags[i], (unsigned char*)&flag_str[i * 3]);  // write 2 hex chars to 0, 3
                 flag_str[(i * 3) + 2] = ' ';                                                // add space after 2 hex chars
             }
-            flag_str[11] = '\0';
+            flag_str[6] = '\0';
 
             PrintMini(&x, &y, "Flags: ", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);  // Flags
             PrintMini(&x, &y, flag_str, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
