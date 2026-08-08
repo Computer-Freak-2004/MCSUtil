@@ -21,7 +21,7 @@ char result_hex[16];
 char* buffer;
 int start = 0;
 int cursor = 0;
-int key;
+static int key;
 
 void printResult() {
     int x = 0, y = 60;
