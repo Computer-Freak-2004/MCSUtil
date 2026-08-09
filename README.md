@@ -23,11 +23,10 @@ If you see `0x43`, there is no space left. Delete some directories to allow add-
 
 ### Delete single directory
 
-This allows you to browse through and delete any directory.
-- `[←]` and `[→]` browse one entry left or right
-- `[↓]` and `[↑]` go to the previous/ next non-empty entry
+- `[↓]` and `[↑]` go one entry up or down
+- `[←]` and `[→]` jump one page back or forward
 
-Besides the directory name in blue, you can see its item count, the starting address of its items in memory, and its flags.
+Besides the directory name, you can see its item count, the starting address of its items in memory, and its flags.
 If the current directory contains items, you can view them with `[F1]`. The name, length in bytes, and flags of each item are shown.
 Press `[EXE]` to delete the current directory entirely. The following return codes are possible:
 - `0`: Success

@@ -1,7 +1,3 @@
-// MCS Create Dir Test by Computer_Freak_2004
-// Enter a name for a MCS Directory and see the result, @ gets added to the front of the input
-// 06.08.2026
-
 #include <fxcg/display.h>
 #include <fxcg/keyboard.h>
 #include <fxcg/misc.h>

@@ -1,21 +1,31 @@
+#include "deleteSingleDir.h"
+
 #include <fxcg/display.h>
+#include <fxcg/file.h>
 #include <fxcg/keyboard.h>
 #include <fxcg/misc.h>
-#include <fxcg/file.h>
 #include <stdlib.h>
 #include <string.h>
 
 #include "mcs_syscalls.h"
 #include "util.h"
-#include "deleteSingleDir.h"
 
 int x = 0, y = 0;
 static int key;
 TMainMemoryDirectoryEntry* dir;
+ItemDisplay items[MCS_SIZE];
+
+// Menu
+int top_entry = 0;
+int current = 0;
+
+int row_count = 0;
+int item_count = 0;
 
 void deleteItem() {
     MsgBoxPush(3);
     int confirm = 0;
+
     while (1) {
         x = 50, y = 60;
         PrintMini(&x, &y, "Delete this directory?", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
@@ -34,7 +44,12 @@ void deleteItem() {
     MsgBoxPop();
 
     if (confirm) {
-        int rc = MCS_DeleteDirectory(dir->name);
+        int rc = MCS_GetDirectoryEntryByNumber(current + 1, &dir);
+        if (rc != 0) {
+            return;
+        }
+
+        rc = MCS_DeleteDirectory(dir->name);
         if (rc == 0x45) {  // directory not empty
             TItemEntry* items = (TItemEntry*)dir->addr;
             for (int i = dir->count - 1; i >= 0; i--) {
@@ -54,6 +69,11 @@ void deleteItem() {
 }
 
 void showItems() {
+    int rc = MCS_GetDirectoryEntryByNumber(current + 1, &dir);
+    if (rc != 0) {
+        return;
+    }
+
     if (dir->count == 0) {
         errorMsg("Error: ", "No items in this directory.", COLOR_RED);
         return;
@@ -138,100 +158,97 @@ void showItems() {
     MsgBoxPop();
 }
 
+void getDirList() {
+    for (int i = 1; i <= MCS_SIZE; i++) {
+        int rc = MCS_GetDirectoryEntryByNumber(i, &dir);
+        if (rc != 0) {
+            strcpy(items[i - 1].name, "");
+            continue;
+        }
+
+        // create null terminated string otherwise there is garbage at the end when using full length
+        char name[9];
+        memcpy(name, dir->name, 8);
+        name[8] = '\0';
+        if (name[0] != '\0') {
+            strcpy(items[i - 1].name, name);  // Name
+        } else {
+            strcpy(items[i - 1].name, "(Empty)");  // Empty name
+        }
+
+        char len_str[5];
+        itoa(dir->count, (unsigned char*)len_str);
+        memcpy(items[i - 1].length, len_str, 5);
+        items[i - 1].length[5] = '\0';  // Length
+
+        char addr_str[11];
+        char addr[8];
+        LongToAscHex((int)dir->addr, (unsigned char*)addr, 8);
+        strcpy(addr_str, "0x");
+        strcat(addr_str, (char*)addr);
+        addr_str[10] = '\0';
+        memcpy(items[i - 1].address, addr_str, 11);  // Address
+
+        char flag_str[7];
+        for (int i = 0; i < 2; i++) {
+            ByteToHex((unsigned char)dir->flags[i], (unsigned char*)&flag_str[i * 3]);  // write 2 hex chars to 0, 3
+            flag_str[(i * 3) + 2] = ' ';                                                // add space after 2 hex chars
+        }
+        flag_str[6] = '\0';
+        memcpy(items[i - 1].flags, flag_str, 6);  // Flags
+    }
+}
+
 void deleteSingleDir() {
-    int current = 1;
+    Bdisp_AllClr_VRAM();
+
+    current = 0;
+    item_count = MCS_SIZE;
+    row_count = 6;
+    top_entry = 0;
+
     while (1) {
         Bdisp_AllClr_VRAM();
         EnableStatusArea(1);
         DisplayStatusArea();
-
         printTitle("Delete single directory", 75);
 
-        int rc = MCS_GetDirectoryEntryByNumber(current, &dir);
+        getDirList();
 
-        x = 0, y = 0;
-        if (rc == 0) {
-            x = 0, y += 20;
-            // create null terminated string otherwise there is garbage at the end when using full length
-            char name[9];
-            memcpy(name, dir->name, 8);
-            name[8] = '\0';
-            if (dir->name[0] != '\0') {
-                PrintMini(&x, &y, name, 0, 0xFFFFFFFF, 0, 0, COLOR_BLUE, COLOR_WHITE, 1, 0);  // Name
-            } else {
-                PrintMini(&x, &y, "(Empty)", 0, 0xFFFFFFFF, 0, 0, COLOR_LIGHTBLUE, COLOR_WHITE, 1, 0);  // empty Name
-            }
+        /*
+        // Debug
+        int x = 0, y = 20;
+        char buf[32];
+        char buf2[32];
+        memset(buf, 0, 32);
+        memset(buf2, 0, 32);
+        itoa(top_entry, buf);
+        itoa(current, buf2);
+        PrintMini(&x, &y, "Top:", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
+        PrintMini(&x, &y, buf, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
+        PrintMini(&x, &y, " | Cur:", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
+        PrintMini(&x, &y, buf2, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
+        */
 
-            x = 0, y += 20;
-            char count_str[64];
-            itoa(dir->count, (unsigned char*)count_str);
+        x = 0, y = 20;
+        PrintMini(&x, &y, "Name", 0, LCD_WIDTH_PX, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
+        x = 120;
+        PrintMini(&x, &y, "Items", 0, LCD_WIDTH_PX, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
+        x = 190;
+        PrintMini(&x, &y, "Address", 0, LCD_WIDTH_PX, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
+        x = 317;
+        PrintMini(&x, &y, "Flags", 0, LCD_WIDTH_PX, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
 
-            PrintMini(&x, &y, "Item count: ", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);  // Count
-            PrintMini(&x, &y, count_str, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
+        drawMenu(0, 43, 378, row_count, 0, items, item_count, top_entry, current, 1);
 
-            x = 0, y += 20;
-            char addr_str[16];
-            LongToAscHex((int)dir->addr, (unsigned char*)addr_str, 8);
-
-            PrintMini(&x, &y, "Address: 0x", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);  // Address
-            PrintMini(&x, &y, addr_str, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
-
-            x = 0, y += 20;
-            char flag_str[7];
-            for (int i = 0; i < 2; i++) {
-                ByteToHex((unsigned char)dir->flags[i], (unsigned char*)&flag_str[i * 3]);  // write 2 hex chars to 0, 3
-                flag_str[(i * 3) + 2] = ' ';                                                // add space after 2 hex chars
-            }
-            flag_str[6] = '\0';
-
-            PrintMini(&x, &y, "Flags: ", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);  // Flags
-            PrintMini(&x, &y, flag_str, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
-        }
-
-        x = 0, y = 130;
-
-        x = 0, y += 20;
-        char current_str[16];
-        itoa(current, (unsigned char*)current_str);
-
-        PrintMini(&x, &y, current_str, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);  // Dir Num
-        PrintMini(&x, &y, "/", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0); 
-        PrintMini(&x, &y, "147", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0); 
-
-        x = 0, y += 20;
-        PrintMini(&x, &y, "[F1] Items | [EXE] Delete | [æ”][æ•] Browse", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
+        x = 0, y = 170;
+        PrintMini(&x, &y, "[F1] Items | [EXE] Delete | [æ•][æ”] Browse", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
 
         GetKey(&key);
+        GetKeyMenu(key, &current, &top_entry, item_count, row_count);
+
         if (key == KEY_CTRL_EXIT) {
             break;
-        }
-        if (key == KEY_CTRL_LEFT) {
-            if (current > 1)
-                current--;
-        }
-        if (key == KEY_CTRL_DOWN) {
-            while (1) {  // find prev valid entry
-                if (current > 1)
-                    current--;
-                MCS_GetDirectoryEntryByNumber(current, &dir);
-                if (dir->name[0] != '\0') {
-                    break;
-                }
-            }
-        }
-        if (key == KEY_CTRL_UP) {
-            while (1) {  // find next valid entry
-                if (current < MCS_SIZE)
-                    current++;
-                MCS_GetDirectoryEntryByNumber(current, &dir);
-                if (dir->name[0] != '\0') {
-                    break;
-                }
-            }
-        }
-        if (key == KEY_CTRL_RIGHT) {
-            if (current < MCS_SIZE)
-                current++;
         }
         if (key == KEY_CTRL_EXE) {  // Delete item
             deleteItem();
