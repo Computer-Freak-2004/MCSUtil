@@ -60,9 +60,9 @@ void deleteAllDirs() {
             int x = 65, y = 40;
             PrintMini(&x, &y, "Deleting ", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);  // Name
             if (strcmp(name, "(Empty)") == 0) {
-                PrintMini(&x, &y, name, 0, 0xFFFFFFFF, 0, 0, COLOR_LIGHTBLUE, COLOR_WHITE, 1, 0);
+                PrintMini(&x, &y, name, 0, 0xFFFFFFFF, 0, 0, COLOR_LIGHTGRAY, COLOR_WHITE, 1, 0);
             } else {
-                PrintMini(&x, &y, name, 0, 0xFFFFFFFF, 0, 0, COLOR_BLUE, COLOR_WHITE, 1, 0);
+                PrintMini(&x, &y, name, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
             }
 
             x = 65, y = y + 20;

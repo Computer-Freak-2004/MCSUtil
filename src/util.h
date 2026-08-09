@@ -12,7 +12,7 @@ void printTitle(char* str, int x);
 void drawHLine(int y);
 void fillArea(unsigned x, unsigned y, unsigned w, unsigned h, unsigned short col);
 void errorMsg(char* errorcode, char* msg, int errorcolor);
-void drawMenu(int x, int y, int width, int row_count, char* items_char[], ItemDisplay items_itemDisplay[], int item_count, int top_entry, int selected_entry, int useItemDisplay);
+void drawMenu(int x, int y, int width, int row_count, char* items_char[], ItemDisplay items_itemDisplay[], int item_count, int top_entry, int selected_entry, int useItemDisplay, int showAddress, int name_x, int length_x, int address_x, int flags_x);
 void GetKeyMenu(int key, int *current, int* top_entry, int item_count, int row_count);
 
 #endif

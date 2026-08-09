@@ -22,6 +22,12 @@ int current = 0;
 int row_count = 0;
 int item_count = 0;
 
+int items_top_entry = 0;
+int items_current = 0;
+
+int items_row_count = 0;
+int items_item_count = 0;
+
 void deleteItem() {
     MsgBoxPush(3);
     int confirm = 0;
@@ -100,59 +106,30 @@ void showItems() {
         memcpy(item_display[i].flags, flag_str, 12);
     }
 
-    int total_lines = dir->count;
-    int visible_lines = 5;
-    int scroll_pos = 0;
-    struct scrollbar sb;
-    sb.I1 = 0;
-    sb.indicatormaximum = total_lines;
-    sb.indicatorheight = visible_lines;
-    sb.indicatorpos = scroll_pos;
-    sb.I5 = 0;
-    sb.barleft = 342;
-    sb.bartop = 70;
-    sb.barheight = 95;
-    sb.barwidth = 6;
+    items_top_entry = 0;
+    items_current = 0;
 
-    Scrollbar(&sb);
-
-    int scroll = 0;
+    items_row_count = 5;
+    items_item_count = 0;
 
     MsgBoxPush(6);
     while (1) {
-        fillArea(40, 85, 300, 105, COLOR_WHITE);
+        fillArea(40, 85, 300, 109, COLOR_WHITE);
+
         int x = 40, y = 25;
         PrintMini(&x, &y, "Items:", 0, LCD_WIDTH_PX, 0, 0, COLOR_BLUE, COLOR_WHITE, 1, 0);
-        y = 45;
 
-        x = 40;
+        x = 40, y = 45;
         PrintMini(&x, &y, "Name", 0, LCD_WIDTH_PX, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
         x = 152;
         PrintMini(&x, &y, "Len", 0, LCD_WIDTH_PX, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
         x = 222;
         PrintMini(&x, &y, "Flags", 0, LCD_WIDTH_PX, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
-        for (int i = 0; i < visible_lines && scroll + i < total_lines; i++) {
-            int y = 70 + i * 20;
-            int x = 40;
-            PrintMini(&x, &y, item_display[scroll + i].name, 0, LCD_WIDTH_PX, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);  // Name
-            x = 152;
-            PrintMini(&x, &y, item_display[scroll + i].length, 0, LCD_WIDTH_PX, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);  // Length
-            x = 222;
-            PrintMini(&x, &y, item_display[scroll + i].flags, 0, LCD_WIDTH_PX, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);  // Flags
-        }
-
-        sb.indicatorpos = scroll;
-        Scrollbar(&sb);
-
+        drawMenu(40, 70, 300, items_row_count, 0, item_display, dir->count, items_top_entry, items_current, 1, 0, 0, 112, 0, 182);
         GetKey(&key);
+        GetKeyMenu(key, &items_current, &items_top_entry, dir->count, items_row_count);
         if (key == KEY_CTRL_EXIT) {
             break;
-        }
-        if (key == KEY_CTRL_DOWN && scroll < total_lines - visible_lines) {
-            scroll++;
-        }
-        if (key == KEY_CTRL_UP && scroll > 0) {
-            scroll--;
         }
     }
     MsgBoxPop();
@@ -239,7 +216,7 @@ void deleteSingleDir() {
         x = 317;
         PrintMini(&x, &y, "Flags", 0, LCD_WIDTH_PX, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
 
-        drawMenu(0, 43, 378, row_count, 0, items, item_count, top_entry, current, 1);
+        drawMenu(0, 43, 378, row_count, 0, items, item_count, top_entry, current, 1, 1, 0, 120, 190, 317);
 
         x = 0, y = 170;
         PrintMini(&x, &y, "[F1] Items | [EXE] Delete | [æ•][æ”] Browse", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);

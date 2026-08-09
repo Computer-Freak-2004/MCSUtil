@@ -49,7 +49,7 @@ void errorMsg(char* errorcode, char* msg, int errorcolor) {
 
 #define SPACE_WIDTH 7
 #define FONT_HEIGHT 20
-void drawMenu(int x, int y, int width, int row_count, char* items_char[], ItemDisplay items_itemDisplay[], int item_count, int top_entry, int selected_entry, int useItemDisplay) {
+void drawMenu(int x, int y, int width, int row_count, char* items_char[], ItemDisplay items_itemDisplay[], int item_count, int top_entry, int selected_entry, int useItemDisplay, int showAddress, int name_x, int length_x, int address_x, int flags_x) {
     for (int i = 0; i < row_count && top_entry + i < item_count; i++) {
         int idx = top_entry + i;
 
@@ -65,30 +65,37 @@ void drawMenu(int x, int y, int width, int row_count, char* items_char[], ItemDi
                 filler[spaces] = '\0';
 
                 PrintMini(&x_pos, &y_pos, filler, 0, LCD_WIDTH_PX, 0, 0, COLOR_WHITE, COLOR_BLACK, 1, 0);
-                x_pos = x;
+                x_pos = x + name_x;
                 if (strcmp(items_itemDisplay[idx].name, "(Empty)") == 0) {
                     PrintMini(&x_pos, &y_pos, items_itemDisplay[idx].name, 0, LCD_WIDTH_PX, 0, 0, COLOR_LIGHTGRAY, COLOR_BLACK, 1, 0);
                 } else {
                     PrintMini(&x_pos, &y_pos, items_itemDisplay[idx].name, 0, LCD_WIDTH_PX, 0, 0, COLOR_WHITE, COLOR_BLACK, 1, 0);
                 }
-                x_pos = x + 120;
+                x_pos = x + length_x;
                 PrintMini(&x_pos, &y_pos, items_itemDisplay[idx].length, 0, LCD_WIDTH_PX, 0, 0, COLOR_WHITE, COLOR_BLACK, 1, 0);
-                x_pos = x + 190;
-                PrintMini(&x_pos, &y_pos, items_itemDisplay[idx].address, 0, LCD_WIDTH_PX, 0, 0, COLOR_WHITE, COLOR_BLACK, 1, 0);
-                x_pos = x + 317;
+                
+                if (showAddress) {
+                    x_pos = x + address_x;
+                    PrintMini(&x_pos, &y_pos, items_itemDisplay[idx].address, 0, LCD_WIDTH_PX, 0, 0, COLOR_WHITE, COLOR_BLACK, 1, 0);
+                }
+                x_pos = x + flags_x;
                 PrintMini(&x_pos, &y_pos, items_itemDisplay[idx].flags, 0, LCD_WIDTH_PX, 0, 0, COLOR_WHITE, COLOR_BLACK, 1, 0);
             } else {
-                x_pos = x;
+                x_pos = x + name_x;
                 if (strcmp(items_itemDisplay[idx].name, "(Empty)") == 0) {
                     PrintMini(&x_pos, &y_pos, items_itemDisplay[idx].name, 0, LCD_WIDTH_PX, 0, 0, COLOR_LIGHTGRAY, COLOR_WHITE, 1, 0);
                 } else {
                     PrintMini(&x_pos, &y_pos, items_itemDisplay[idx].name, 0, LCD_WIDTH_PX, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
                 }
-                x_pos = x + 120;
+                x_pos = x + length_x;
                 PrintMini(&x_pos, &y_pos, items_itemDisplay[idx].length, 0, LCD_WIDTH_PX, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
-                x_pos = x + 190;
-                PrintMini(&x_pos, &y_pos, items_itemDisplay[idx].address, 0, LCD_WIDTH_PX, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
-                x_pos = x + 317;
+                
+                if (showAddress) {
+                    x_pos = x + address_x;
+                    PrintMini(&x_pos, &y_pos, items_itemDisplay[idx].address, 0, LCD_WIDTH_PX, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
+                }
+
+                x_pos = x + flags_x;
                 PrintMini(&x_pos, &y_pos, items_itemDisplay[idx].flags, 0, LCD_WIDTH_PX, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
             }
         } else {
