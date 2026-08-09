@@ -219,7 +219,7 @@ void deleteSingleDir() {
         drawMenu(0, 43, 378, row_count, 0, items, item_count, top_entry, current, 1, 1, 0, 120, 190, 317, 0);
 
         x = 0, y = 170;
-        PrintMini(&x, &y, "[F1] Items | [EXE] Delete | [æ•][æ”] Browse", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
+        PrintMini(&x, &y, "[F1] Items | [EXE] Delete | [\xE6\x95][\xE6\x94] Browse", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
 
         GetKey(&key);
         GetKeyMenu(key, &current, &top_entry, item_count, row_count);

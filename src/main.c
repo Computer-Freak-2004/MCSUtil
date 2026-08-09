@@ -21,14 +21,14 @@ int main() {
     Bdisp_EnableColor(1);
 
     char* items[] = {
-        "Create Directory Test                            ",
-        "Delete single directory                          ",
-        "Delete all empty directories                     ",
-        "Directory space usage                            ",
-        "Test Mode                                        ",
-        "Help                                             ",
-        "About                                            ",
-        "Exit                                             "};
+        "Create Directory Test",
+        "Delete single directory",
+        "Delete all empty directories",
+        "Directory space usage",
+        "Test Mode",
+        "Help",
+        "About",
+        "Exit"};
 
     int selected = 0;
     int top_entry = 0;
@@ -45,7 +45,7 @@ int main() {
         PrintXY(1, 1, "       MCS Utility", 0x20, TEXT_COLOR_BLUE);
         drawHLine(50);
 
-        drawMenu(0, 30, 370, row_count, items, 0, item_count, top_entry, selected, 0, 0, 0, 0, 0, 0, "æ›");
+        drawMenu(0, 30, LCD_WIDTH_PX, row_count, items, 0, item_count, top_entry, selected, 0, 0, 0, 0, 0, 0, "\xE6\x9B");
 
         if (startup == 0) {
             int usage = 0;

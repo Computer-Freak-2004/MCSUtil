@@ -32,8 +32,8 @@ void deleteAllDirs() {
         } else if (key == KEY_CTRL_EXIT)
             break;
     }
-
     MsgBoxPop();
+
     if (confirm) {
         TMainMemoryDirectoryEntry* dir;
         Bdisp_AllClr_VRAM();
@@ -41,9 +41,10 @@ void deleteAllDirs() {
         DisplayStatusArea();
         printTitle("Delete all empty directories", 55);
 
+        MsgBoxPush(5);
         HourGlass();
         for (int i = 1; i <= MCS_SIZE; i++) {
-            fillArea(60, 60, LCD_WIDTH_PX - 80, 45, COLOR_WHITE);
+            fillArea(60, 60, LCD_WIDTH_PX - 100, 45, COLOR_WHITE);
 
             int rc = MCS_GetDirectoryEntryByNumber(i, &dir);
 
@@ -83,4 +84,5 @@ void deleteAllDirs() {
             }
         }
     }
+    MsgBoxPop();
 }

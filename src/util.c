@@ -21,12 +21,12 @@ void drawHLine(int y) {
 
 void fillArea(unsigned x, unsigned y, unsigned w, unsigned h, unsigned short col) {
     unsigned short* s = (unsigned short*)GetVRAMAddress();
-    s += (y * 384) + x;
+    s += (y * LCD_WIDTH_PX) + x;
     while (h--) {
         unsigned w2 = w;
         while (w2--)
             *s++ = col;
-        s += 384 - w;
+        s += LCD_WIDTH_PX - w;
     }
 }
 
@@ -190,4 +190,9 @@ void GetKeyMenu(int key, int* current, int* top_entry, int item_count, int row_c
             (*top_entry)++;
         }
     }
+
+    if (*top_entry < 0)
+        *top_entry = 0;
+    if (*current < 0)
+        *current = 0;
 }
