@@ -31,7 +31,9 @@ int main() {
         "Exit                                             "};
 
     int selected = 0;
-    int count = sizeof(items) / sizeof(items[0]);
+    int top_entry = 0;
+    int row_count = 8;
+    int item_count = sizeof(items) / sizeof(items[0]);
 
     while (1) {
         Cursor_SetFlashOff();
@@ -43,18 +45,7 @@ int main() {
         PrintXY(1, 1, "       MCS Utility", 0x20, TEXT_COLOR_BLUE);
         drawHLine(50);
 
-        for (int i = 0; i < count; i++) {
-            int x = 0, y = 30 + i * 20;
-            if (i == selected) {
-                PrintMini(&x, &y, "æ›  ", 0, 0xFFFFFFFF, 0, 0, COLOR_WHITE, COLOR_BLACK, 1, 0);
-                x = 15;
-                PrintMini(&x, &y, items[i], 0, 0xFFFFFFFF, 0, 0, COLOR_WHITE, COLOR_BLACK, 1, 0);
-            } else {
-                PrintMini(&x, &y, "   ", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
-                x = 15;
-                PrintMini(&x, &y, items[i], 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
-            }
-        }
+        drawMenu(0, 30, 370, row_count, items, 0, item_count, top_entry, selected, 0, 0, 0, 0, 0, 0, "æ›");
 
         if (startup == 0) {
             int usage = 0;
@@ -69,28 +60,21 @@ int main() {
         }
 
         GetKey(&key);
-        if (key == KEY_CTRL_UP)
-            selected = (selected + count - 1) % count;
-        if (key == KEY_CTRL_DOWN)
-            selected = (selected + count + 1) % count;
+        GetKeyMenu(key, &selected, &top_entry, item_count, row_count);
         if (key == KEY_CTRL_EXE && selected == 0)  // Create Dir test
             createDirTest();
         if (key == KEY_CTRL_EXE && selected == 1)  // Delete single dir
             deleteSingleDir();
         if (key == KEY_CTRL_EXE && selected == 2)  // Delete all dirs
             deleteAllDirs();
-        if (key == KEY_CTRL_EXE && selected == 3) {  // Dir Space usage
+        if (key == KEY_CTRL_EXE && selected == 3)  // Dir Space usage
             dirSpaceUsage();
-        }
-        if (key == KEY_CTRL_EXE && selected == 4) {  // Test Mode
+        if (key == KEY_CTRL_EXE && selected == 4)  // Test Mode
             openTestMode();
-        }
-        if (key == KEY_CTRL_EXE && selected == 5) {  // Help
+        if (key == KEY_CTRL_EXE && selected == 5)  // Help
             help();
-        }
-        if (key == KEY_CTRL_EXE && selected == 6) {  // About
+        if (key == KEY_CTRL_EXE && selected == 6)  // About
             about();
-        }
         if (key == KEY_CTRL_EXE && selected == 7) {  // Exit
             Bdisp_AllClr_VRAM();
             int x = 70, y = 60;

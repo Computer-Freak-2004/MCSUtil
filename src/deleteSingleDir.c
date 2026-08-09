@@ -125,7 +125,7 @@ void showItems() {
         PrintMini(&x, &y, "Len", 0, LCD_WIDTH_PX, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
         x = 222;
         PrintMini(&x, &y, "Flags", 0, LCD_WIDTH_PX, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
-        drawMenu(40, 70, 300, items_row_count, 0, item_display, dir->count, items_top_entry, items_current, 1, 0, 0, 112, 0, 182);
+        drawMenu(40, 70, 300, items_row_count, 0, item_display, dir->count, items_top_entry, items_current, 1, 0, 0, 112, 0, 182, 0);
         GetKey(&key);
         GetKeyMenu(key, &items_current, &items_top_entry, dir->count, items_row_count);
         if (key == KEY_CTRL_EXIT) {
@@ -216,7 +216,7 @@ void deleteSingleDir() {
         x = 317;
         PrintMini(&x, &y, "Flags", 0, LCD_WIDTH_PX, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
 
-        drawMenu(0, 43, 378, row_count, 0, items, item_count, top_entry, current, 1, 1, 0, 120, 190, 317);
+        drawMenu(0, 43, 378, row_count, 0, items, item_count, top_entry, current, 1, 1, 0, 120, 190, 317, 0);
 
         x = 0, y = 170;
         PrintMini(&x, &y, "[F1] Items | [EXE] Delete | [æ•][æ”] Browse", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);

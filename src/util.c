@@ -49,7 +49,7 @@ void errorMsg(char* errorcode, char* msg, int errorcolor) {
 
 #define SPACE_WIDTH 7
 #define FONT_HEIGHT 20
-void drawMenu(int x, int y, int width, int row_count, char* items_char[], ItemDisplay items_itemDisplay[], int item_count, int top_entry, int selected_entry, int useItemDisplay, int showAddress, int name_x, int length_x, int address_x, int flags_x) {
+void drawMenu(int x, int y, int width, int row_count, char* items_char[], ItemDisplay items_itemDisplay[], int item_count, int top_entry, int selected_entry, int useItemDisplay, int showAddress, int name_x, int length_x, int address_x, int flags_x, char arrow_symbol[2]) {
     for (int i = 0; i < row_count && top_entry + i < item_count; i++) {
         int idx = top_entry + i;
 
@@ -73,7 +73,7 @@ void drawMenu(int x, int y, int width, int row_count, char* items_char[], ItemDi
                 }
                 x_pos = x + length_x;
                 PrintMini(&x_pos, &y_pos, items_itemDisplay[idx].length, 0, LCD_WIDTH_PX, 0, 0, COLOR_WHITE, COLOR_BLACK, 1, 0);
-                
+
                 if (showAddress) {
                     x_pos = x + address_x;
                     PrintMini(&x_pos, &y_pos, items_itemDisplay[idx].address, 0, LCD_WIDTH_PX, 0, 0, COLOR_WHITE, COLOR_BLACK, 1, 0);
@@ -89,7 +89,7 @@ void drawMenu(int x, int y, int width, int row_count, char* items_char[], ItemDi
                 }
                 x_pos = x + length_x;
                 PrintMini(&x_pos, &y_pos, items_itemDisplay[idx].length, 0, LCD_WIDTH_PX, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
-                
+
                 if (showAddress) {
                     x_pos = x + address_x;
                     PrintMini(&x_pos, &y_pos, items_itemDisplay[idx].address, 0, LCD_WIDTH_PX, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
@@ -102,15 +102,32 @@ void drawMenu(int x, int y, int width, int row_count, char* items_char[], ItemDi
             if (idx == selected_entry) {
                 // fill width of selected entry with inverted spaces
                 int spaces = (width / SPACE_WIDTH);
-                char filler[spaces + 1];
-                memset(filler, ' ', spaces);
-                filler[spaces] = '\0';
+                if (arrow_symbol) {
+                    char filler_arrow[spaces + 1];  // 2: arrow, 1: \0, 2 less spaces because of arrow
+                    memcpy(filler_arrow, arrow_symbol, 2);
+                    memset(filler_arrow + 2, ' ', spaces - 2);
+                    filler_arrow[spaces] = '\0';
+                    PrintMini(&x_pos, &y_pos, filler_arrow, 0, LCD_WIDTH_PX, 0, 0, COLOR_WHITE, COLOR_BLACK, 1, 0);
 
-                PrintMini(&x_pos, &y_pos, filler, 0, LCD_WIDTH_PX, 0, 0, COLOR_WHITE, COLOR_BLACK, 1, 0);
-                x_pos = x;
-                PrintMini(&x_pos, &y_pos, items_char[idx], 0, LCD_WIDTH_PX, 0, 0, COLOR_WHITE, COLOR_BLACK, 1, 0);
+                    x_pos = x + 15;
+                    PrintMini(&x_pos, &y_pos, items_char[idx], 0, LCD_WIDTH_PX, 0, 0, COLOR_WHITE, COLOR_BLACK, 1, 0);
+                } else {
+                    char filler[spaces + 1];
+                    memset(filler, ' ', spaces);
+                    filler[spaces] = '\0';
+                    PrintMini(&x_pos, &y_pos, filler, 0, LCD_WIDTH_PX, 0, 0, COLOR_WHITE, COLOR_BLACK, 1, 0);
+
+                    x_pos = x;
+                    PrintMini(&x_pos, &y_pos, items_char[idx], 0, LCD_WIDTH_PX, 0, 0, COLOR_WHITE, COLOR_BLACK, 1, 0);
+                }
             } else {
-                PrintMini(&x_pos, &y_pos, items_char[idx], 0, LCD_WIDTH_PX, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
+                if (arrow_symbol) {
+                    x_pos = x + 15;
+                    PrintMini(&x_pos, &y_pos, items_char[idx], 0, LCD_WIDTH_PX, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
+                } else {
+                    x_pos = x;
+                    PrintMini(&x_pos, &y_pos, items_char[idx], 0, LCD_WIDTH_PX, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
+                }
             }
         }
     }
