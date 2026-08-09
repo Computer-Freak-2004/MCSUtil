@@ -21,14 +21,18 @@ static int key;
 
 void printResult() {
     int x = 0, y = 60;
-    if (rc != -1) {  // Input done
+    PrintMini(&x, &y, "Input: ", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);  // Entered input
+    PrintMini(&x, &y, name, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
+
+    if (rc != -1) {  // Input
+        x = 0, y = 100;
         itoa(rc, (unsigned char*)result_dec);
         LongToAscHex(rc, (unsigned char*)result_hex, 2);
         PrintMini(&x, &y, result_dec, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);  // Return Code
         PrintMini(&x, &y, ", 0x", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
         PrintMini(&x, &y, result_hex, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
 
-        x = 0, y = 80;
+        x = 0, y = 120;
         if (rc == 0) {
             PrintMini(&x, &y, "Success", 0, 0xFFFFFFFF, 0, 0, COLOR_LIME, COLOR_WHITE, 1, 0);
         } else if (rc == 0x42) {
@@ -39,11 +43,8 @@ void printResult() {
             PrintMini(&x, &y, "Failure", 0, 0xFFFFFFFF, 0, 0, COLOR_RED, COLOR_WHITE, 1, 0);
         }
 
-        x = 0, y = 170;
-        PrintMini(&x, &y, "Input: ", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);  // Entered input
-        PrintMini(&x, &y, name, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
     } else if (rc == -1) {  // No input done
-        x = 0, y = 170;
+        x = 0, y = 60;
         PrintMini(&x, &y, "Input: ", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
     }
 }
@@ -68,14 +69,17 @@ void createDirTest() {
         DisplayStatusArea();
 
         printTitle("Create Directory Test", 85);
+
         printResult();
 
         PrintXY(1, 2, "  Name: @", 0, TEXT_COLOR_BLACK);
         DisplayMBString((unsigned char*)buffer, start, cursor, 8, 2);
         Bdisp_Rectangle(104, 20, 260, 50, COLOR_BLACK);
 
-        GetKey(&key);
+        int x = 0, y = 80;
+        PrintMini(&x, &y, "Result:", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
 
+        GetKey(&key);
         if (key == KEY_CTRL_EXE) {
             name[0] = '@';
             strcpy(name + 1, buffer);

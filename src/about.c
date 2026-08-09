@@ -16,7 +16,7 @@ void about() {
 
     printTitle("About", 160);
 
-    VRAM_CopySprite(icon, 20, 45, 92, 64);
+    VRAM_CopySprite(icon, 25, 50, 82, 38);
 
     PrintXY(1, 2, "          MCS Utility", 0x20, TEXT_COLOR_BLUE);
 
