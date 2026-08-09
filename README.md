@@ -101,4 +101,3 @@ Then run `make`.
 Addresses only for fx-CG20/50 (probably won't work on fx-CG10):
 - `0x1533: int MCS_GetDirectoryEntryByNumber(int dirno, TMainMemoryDirectoryEntry** pdir);`
 - `0x1515: int MCS_CreateDirectory2(unsigned char* dir, char* dirno);`
-- `0x1516: int MCS_DeleteDirectory(unsigned char* dir);`
