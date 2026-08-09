@@ -49,6 +49,7 @@ Shows how many of the 147 directory entries are currently in use. It's impossibl
 - `@REV3..@REV1`
 - `library`
 - `system`
+Additionally it shows the total number of items and the amount of free MCS space in bytes.
 
 ### Test Mode
 

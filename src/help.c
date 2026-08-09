@@ -88,7 +88,9 @@ void help() {
         "- @REV3..@REV1",
         "- library",
         "- system",
-
+        "Additionally it shows the total",
+        "number of items and the amount of",
+        "free MCS space in bytes."
         "",
         "               == Test Mode ==",
         "Opens a secret menu that is usually",

@@ -31,7 +31,7 @@ void about() {
     PrintMini(&x, &y, "Version: @", 0, LCD_WIDTH_PX, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
     PrintMini(&x, &y, GIT_COMMIT, 0, LCD_WIDTH_PX, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
     x = 0, y += 20;
-    PrintMini(&x, &y, "Date: 06.08. - 08.08.2026", 0, LCD_WIDTH_PX, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
+    PrintMini(&x, &y, "Date: 06.08. - 09.08.2026", 0, LCD_WIDTH_PX, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
     x = 0, y += 20;
     PrintMini(&x, &y, "Buildtime: ", 0, LCD_WIDTH_PX, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
     PrintMini(&x, &y, __DATE__, 0, LCD_WIDTH_PX, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);

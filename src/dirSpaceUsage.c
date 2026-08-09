@@ -1,4 +1,5 @@
 #include <fxcg/display.h>
+#include <fxcg/file.h>
 #include <fxcg/keyboard.h>
 #include <fxcg/misc.h>
 #include <stdlib.h>
@@ -6,6 +7,8 @@
 
 #include "mcs_syscalls.h"
 #include "util.h"
+
+#define MAIN_MEM_SIZE 0xFA30
 
 void checkUsage(int* usage, int* itemCount) {
     TMainMemoryDirectoryEntry* dir;
@@ -62,11 +65,25 @@ void dirSpaceUsage() {
             PrintMini(&x, &y, "No space left!", 0, 0xFFFFFFFF, 0, 0, COLOR_RED, COLOR_WHITE, 1, 0);
         }
 
-        x = 0, y = 170;
+        x = 0, y = 150;
         char itemCount_str[32];
         itoa(itemCount, (unsigned char*)itemCount_str);
         PrintMini(&x, &y, "Total items: ", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);  // total Items
         PrintMini(&x, &y, itemCount_str, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
+
+        int mcs_start = 0;
+        int mcs_bottom = 0;
+        mcs_start = MCS_GetMainMemoryStart();
+        MCS_GetCapa(&mcs_bottom);
+
+        int mcs_usage = mcs_bottom - mcs_start;
+        int mcs_free = MAIN_MEM_SIZE - mcs_usage;
+        x = 0, y += 20;
+        char mcsFree_str[32];
+        itoa(mcs_free, (unsigned char*)mcsFree_str);
+        PrintMini(&x, &y, "MCS free: ", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);  // MCS free
+        PrintMini(&x, &y, mcsFree_str, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
+        PrintMini(&x, &y, " Byte", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
 
         Bdisp_Rectangle(63, 98, 320, 118, COLOR_BLACK);
         ProgressBar2((unsigned char*)"", usage, MCS_SIZE);
