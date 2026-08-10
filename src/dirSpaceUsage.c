@@ -64,7 +64,7 @@ void dirSpaceUsage() {
             PrintMini(&x, &y, "No space left!", 0, 0xFFFFFFFF, 0, 0, COLOR_RED, COLOR_WHITE, 1, 0);
         }
 
-        x = 0, y = 150;
+        x = 0, y = 155;
         char itemCount_str[32];
         itoa(itemCount, (unsigned char*)itemCount_str);
         PrintMini(&x, &y, "Total items: ", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);  // total Items

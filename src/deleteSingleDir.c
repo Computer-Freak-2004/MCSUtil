@@ -71,6 +71,7 @@ void deleteItem() {
             errorMsg("Error 0x47:", "Certain dir flags are set.", COLOR_RED);
         }
     }
+    getDirList();
 }
 
 void showItems() {
@@ -188,12 +189,12 @@ void deleteSingleDir() {
     row_count = 7;
     top_entry = 0;
 
+    getDirList();
+
     while (1) {
         Bdisp_AllClr_VRAM();
         printTitle("Delete single directory");
         DisplayStatusArea();
-
-        getDirList();
 
         x = 0, y = 0;
         PrintMini(&x, &y, "Name", 0, LCD_WIDTH_PX, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
