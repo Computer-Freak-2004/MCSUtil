@@ -18,13 +18,12 @@ ItemDisplay items[MCS_SIZE];
 // Menu
 int top_entry = 0;
 int current = 0;
-
 int row_count = 0;
 int item_count = 0;
 
+// Item Menu
 int items_top_entry = 0;
 int items_current = 0;
-
 int items_row_count = 0;
 int items_item_count = 0;
 
@@ -108,9 +107,8 @@ void showItems() {
 
     items_top_entry = 0;
     items_current = 0;
-
     items_row_count = 5;
-    items_item_count = 0;
+    items_item_count = dir->count;
 
     MsgBoxPush(6);
     while (1) {
@@ -125,9 +123,12 @@ void showItems() {
         PrintMini(&x, &y, "Len", 0, LCD_WIDTH_PX, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
         x = 222;
         PrintMini(&x, &y, "Flags", 0, LCD_WIDTH_PX, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
-        drawMenu(40, 70, 300, items_row_count, 0, item_display, dir->count, items_top_entry, items_current, 1, 0, 0, 112, 0, 182, 0);
+
+        //debugMenu(items_current, items_top_entry, items_item_count, items_row_count);
+        drawMenu(40, 70, 300, items_row_count, 0, item_display, items_item_count, items_top_entry, items_current, 1, 0, 0, 112, 0, 182, 0);
+
         GetKey(&key);
-        GetKeyMenu(key, &items_current, &items_top_entry, dir->count, items_row_count);
+        GetKeyMenu(key, &items_current, &items_top_entry, items_item_count, items_row_count);
         if (key == KEY_CTRL_EXIT) {
             break;
         }
@@ -192,21 +193,6 @@ void deleteSingleDir() {
 
         getDirList();
 
-        /*
-        // Debug
-        int x = 0, y = 20;
-        char buf[32];
-        char buf2[32];
-        memset(buf, 0, 32);
-        memset(buf2, 0, 32);
-        itoa(top_entry, buf);
-        itoa(current, buf2);
-        PrintMini(&x, &y, "Top:", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
-        PrintMini(&x, &y, buf, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
-        PrintMini(&x, &y, " | Cur:", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
-        PrintMini(&x, &y, buf2, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
-        */
-
         x = 0, y = 20;
         PrintMini(&x, &y, "Name", 0, LCD_WIDTH_PX, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
         x = 120;
@@ -216,6 +202,7 @@ void deleteSingleDir() {
         x = 317;
         PrintMini(&x, &y, "Flags", 0, LCD_WIDTH_PX, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
 
+        //debugMenu(current, top_entry, item_count, row_count);
         drawMenu(0, 43, 378, row_count, 0, items, item_count, top_entry, current, 1, 1, 0, 120, 190, 317, 0);
 
         x = 0, y = 170;

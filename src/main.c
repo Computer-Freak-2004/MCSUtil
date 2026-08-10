@@ -45,6 +45,7 @@ int main() {
         PrintXY(1, 1, "       MCS Utility", 0x20, TEXT_COLOR_BLUE);
         drawHLine(50);
 
+        //debugMenu(selected, top_entry, item_count, row_count);
         drawMenu(0, 30, LCD_WIDTH_PX, row_count, items, 0, item_count, top_entry, selected, 0, 0, 0, 0, 0, 0, "\xE6\x9B");
 
         if (startup == 0) {

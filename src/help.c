@@ -90,7 +90,7 @@ void help() {
         "- system",
         "Additionally it shows the total",
         "number of items and the amount of",
-        "free MCS space in bytes."
+        "free MCS space in bytes.",
         "",
         "               == Test Mode ==",
         "Opens a secret menu that is usually",

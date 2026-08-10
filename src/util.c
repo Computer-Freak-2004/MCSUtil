@@ -153,34 +153,52 @@ void drawMenu(int x, int y, int width, int row_count, char* items_char[], ItemDi
 void GetKeyMenu(int key, int* current, int* top_entry, int item_count, int row_count) {
     if (key == KEY_CTRL_UP) {
         (*current)--;
-        if (*current < 0) {
+        if (*current < 0) {  // menu loop
             *current = item_count - 1;
-            *top_entry = item_count - 1 - (row_count - 1);
+            if (item_count > row_count) {
+                *top_entry = item_count - row_count;
+            }
         }
 
         // if current atleast 1 above top_entry scroll list up
-        if (*current - *top_entry < 0) {
+        if (*current - *top_entry < 0 && item_count > row_count) {
             (*top_entry)--;
         }
     }
-    if (key == KEY_CTRL_RIGHT) {  // + 1 page
-        *current = (*current + row_count) % item_count;
-        *top_entry = *current - (*current % row_count);
+    if (key == KEY_CTRL_RIGHT) {       // + 1 page
+        if (item_count > row_count) {  // scrolling needed: jump ahead by row_count
+            *current = (*current + row_count) % item_count;
+            *top_entry = *current - (*current % row_count);
 
-        if (*top_entry > item_count - row_count)  // always full screen
-            *top_entry = item_count - row_count;
+            if (*top_entry > item_count - row_count)  // always full screen
+                *top_entry = item_count - row_count;
+        } else {  // no scrolling needed: jump to start or end
+            if (*current == *top_entry) {
+                *current = item_count - 1;
+            } else {
+                *current = 0;
+            }
+        }
     }
-    if (key == KEY_CTRL_LEFT) {  // - 1 page
-        // Add item_count because modulo can return neg. result
-        *current = (*current - row_count + item_count) % item_count;
-        *top_entry = *current - (*current % row_count);
+    if (key == KEY_CTRL_LEFT) {        // - 1 page
+        if (item_count > row_count) {  // scrolling needed: jump back by row_count
+            // Add item_count because modulo can return neg. result
+            *current = ((*current - row_count) + item_count) % item_count;
+            *top_entry = *current - (*current % row_count);
 
-        if (*top_entry > item_count - row_count)  // always full screen
-            *top_entry = item_count - row_count;
+            if (*top_entry > item_count - row_count)  // always full screen
+                *top_entry = item_count - row_count;
+        } else {  // no scrolling needed: jump to start or end
+            if (*current == *top_entry) {
+                *current = item_count - 1;
+            } else {
+                *current = 0;
+            }
+        }
     }
     if (key == KEY_CTRL_DOWN) {
         (*current)++;
-        if (*current > item_count - 1) {
+        if (*current > item_count - 1) {  // menu loop
             *current = 0;
             *top_entry = 0;
         }
@@ -190,9 +208,25 @@ void GetKeyMenu(int key, int* current, int* top_entry, int item_count, int row_c
             (*top_entry)++;
         }
     }
+}
 
-    if (*top_entry < 0)
-        *top_entry = 0;
-    if (*current < 0)
-        *current = 0;
+void debugMenu(int current, int top_entry, int item_count, int row_count) {
+    // Debug
+    int x = 30, y = 0;
+    char buf[32];
+    char buf2[32];
+    char buf3[32];
+    char buf4[32];
+    itoa(top_entry, (unsigned char*)buf);
+    itoa(current, (unsigned char*)buf2);
+    itoa(item_count, (unsigned char*)buf3);
+    itoa(row_count, (unsigned char*)buf4);
+    PrintMini(&x, &y, "Top:", 0x40, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
+    PrintMini(&x, &y, buf, 0x40, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
+    PrintMini(&x, &y, " | Cur:", 0x40, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
+    PrintMini(&x, &y, buf2, 0x40, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
+    PrintMini(&x, &y, " | Item:", 0x40, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
+    PrintMini(&x, &y, buf3, 0x40, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
+    PrintMini(&x, &y, " | Row:", 0x40, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
+    PrintMini(&x, &y, buf4, 0x40, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
 }
