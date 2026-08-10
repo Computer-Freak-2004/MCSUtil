@@ -50,9 +50,7 @@ void deleteAllDirs() {
 
             char name[9];
             if (dir->name[0] != '\0') {
-                // create null terminated string otherwise there is garbage at the end when using full length
-                memcpy(name, dir->name, 8);
-                name[8] = '\0';
+                nullTerminateString(name, (char*)dir->name, 8);
 
             } else {
                 strcpy(name, "(Empty)");

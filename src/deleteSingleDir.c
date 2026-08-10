@@ -115,8 +115,11 @@ void showItems() {
         fillArea(35, 85, 300, 109, COLOR_WHITE);
 
         int x = 40, y = 25;
+
+        char name[9];
+        nullTerminateString(name, (char*)dir->name, 8);
         PrintMini(&x, &y, "Items of ", 0, LCD_WIDTH_PX, 0, 0, COLOR_BLUE, COLOR_WHITE, 1, 0);
-        PrintMini(&x, &y, (char*)dir->name, 0, LCD_WIDTH_PX, 0, 0, COLOR_BLUE, COLOR_WHITE, 1, 0);
+        PrintMini(&x, &y, name, 0, LCD_WIDTH_PX, 0, 0, COLOR_BLUE, COLOR_WHITE, 1, 0);
         PrintMini(&x, &y, ":", 0, LCD_WIDTH_PX, 0, 0, COLOR_BLUE, COLOR_WHITE, 1, 0);
 
         x = 40, y = 45;
@@ -126,7 +129,7 @@ void showItems() {
         x = 222;
         PrintMini(&x, &y, "Flags", 0, LCD_WIDTH_PX, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
 
-        //debugMenu(items_current, items_top_entry, items_item_count, items_row_count);
+        // debugMenu(items_current, items_top_entry, items_item_count, items_row_count);
         drawMenu(40, 70, 300, items_row_count, 0, item_display, items_item_count, items_top_entry, items_current, 1, 0, 0, 112, 0, 182, 0);
 
         GetKey(&key);
@@ -146,10 +149,8 @@ void getDirList() {
             continue;
         }
 
-        // create null terminated string otherwise there is garbage at the end when using full length
         char name[9];
-        memcpy(name, dir->name, 8);
-        name[8] = '\0';
+        nullTerminateString(name, (char*)dir->name, 8);
         if (name[0] != '\0') {
             strcpy(items[i - 1].name, name);  // Name
         } else {
@@ -203,7 +204,7 @@ void deleteSingleDir() {
         x = 317;
         PrintMini(&x, &y, "Flags", 0, LCD_WIDTH_PX, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
 
-        //debugMenu(current, top_entry, item_count, row_count);
+        // debugMenu(current, top_entry, item_count, row_count);
         drawMenu(0, 23, 378, row_count, 0, items, item_count, top_entry, current, 1, 1, 0, 120, 190, 317, 0);
 
         x = 0, y = 175;

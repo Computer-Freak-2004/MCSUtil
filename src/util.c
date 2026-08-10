@@ -3,9 +3,9 @@
 #include <fxcg/display.h>
 #include <fxcg/keyboard.h>
 #include <fxcg/misc.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <stdio.h>
 
 void printTitle(char* str) {
     EnableStatusArea(0);
@@ -54,6 +54,12 @@ void errorMsg(char* errorcode, char* msg, int errorcolor) {
         if (key == KEY_CTRL_EXE) break;
     }
     MsgBoxPop();
+}
+
+void nullTerminateString(char* null_str, char* str, int str_len) {
+    // create null terminated string for 8 char dir->name otherwise there is garbage at the end
+    memcpy(null_str, str, str_len);
+    null_str[str_len] = '\0';
 }
 
 #define SPACE_WIDTH 7

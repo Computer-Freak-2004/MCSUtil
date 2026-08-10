@@ -13,6 +13,7 @@ void drawHLine(int y);
 void drawProgressBar(int x, int y, int current, int max, short color);
 void fillArea(unsigned x, unsigned y, unsigned w, unsigned h, unsigned short col);
 void errorMsg(char* errorcode, char* msg, int errorcolor);
+void nullTerminateString(char* null_str, char* str, int str_len);
 void drawMenu(int x, int y, int width, int row_count, char* items_char[], ItemDisplay items_itemDisplay[], int item_count, int top_entry, int selected_entry, int useItemDisplay, int showAddress, int name_x, int length_x, int address_x, int flags_x, char arrow_symbol[2]);
 void GetKeyMenu(int key, int *current, int* top_entry, int item_count, int row_count);
 void debugMenu(int current, int top_entry, int item_count, int row_count);
