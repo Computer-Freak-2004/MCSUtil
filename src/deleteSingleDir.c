@@ -112,7 +112,7 @@ void showItems() {
 
     MsgBoxPush(6);
     while (1) {
-        fillArea(40, 85, 300, 109, COLOR_WHITE);
+        fillArea(34, 85, 300, 109, COLOR_WHITE);
 
         int x = 40, y = 25;
         PrintMini(&x, &y, "Items:", 0, LCD_WIDTH_PX, 0, 0, COLOR_BLUE, COLOR_WHITE, 1, 0);
@@ -205,7 +205,7 @@ void deleteSingleDir() {
         //debugMenu(current, top_entry, item_count, row_count);
         drawMenu(0, 43, 378, row_count, 0, items, item_count, top_entry, current, 1, 1, 0, 120, 190, 317, 0);
 
-        x = 0, y = 170;
+        x = 0, y = 175;
         PrintMini(&x, &y, "[F1] Items | [EXE] Delete | [\xE6\x95][\xE6\x94] Browse", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
 
         GetKey(&key);
