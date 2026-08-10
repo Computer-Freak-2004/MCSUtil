@@ -1,7 +1,7 @@
 #include <fxcg/display.h>
+#include <fxcg/file.h>
 #include <fxcg/keyboard.h>
 #include <fxcg/misc.h>
-#include <fxcg/file.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -13,9 +13,8 @@ static int key;
 void deleteAllDirs() {
     Bdisp_AllClr_VRAM();
 
-    EnableStatusArea(1);
+    printTitle("Delete all empty directories");
     DisplayStatusArea();
-    printTitle("Delete all empty directories", 55);
 
     int confirm = 0;
     MsgBoxPush(3);
@@ -38,14 +37,14 @@ void deleteAllDirs() {
     if (confirm) {
         TMainMemoryDirectoryEntry* dir;
         Bdisp_AllClr_VRAM();
-        EnableStatusArea(1);
-        DisplayStatusArea();
-        printTitle("Delete all empty directories", 55);
 
-        MsgBoxPush(5);
+        printTitle("Delete all empty directories");
+        DisplayStatusArea();
+
+        MsgBoxPush(3);
         HourGlass();
         for (int i = 1; i <= MCS_SIZE; i++) {
-            fillArea(60, 60, LCD_WIDTH_PX - 100, 45, COLOR_WHITE);
+            fillArea(54, 65, LCD_WIDTH_PX - 100, 45, COLOR_WHITE);
 
             int rc = MCS_GetDirectoryEntryByNumber(i, &dir);
 
@@ -59,7 +58,7 @@ void deleteAllDirs() {
                 strcpy(name, "(Empty)");
             }
 
-            int x = 65, y = 40;
+            int x = 62, y = 50;
             PrintMini(&x, &y, "Deleting ", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);  // Name
             if (strcmp(name, "(Empty)") == 0) {
                 PrintMini(&x, &y, name, 0, 0xFFFFFFFF, 0, 0, COLOR_LIGHTGRAY, COLOR_WHITE, 1, 0);
@@ -67,18 +66,18 @@ void deleteAllDirs() {
                 PrintMini(&x, &y, name, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
             }
 
-            x = 65, y = y + 20;
+            x = 62, y = y + 20;
             char i_str[16];
             itoa(i, (unsigned char*)i_str);
             char max_str[16];
             itoa(MCS_SIZE, (unsigned char*)max_str);
 
             PrintMini(&x, &y, i_str, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);  // Progress i/max
-            PrintMini(&x, &y, "/", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0); 
+            PrintMini(&x, &y, "/", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
             PrintMini(&x, &y, max_str, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
 
-            Bdisp_Rectangle(63, 98, 320, 118, COLOR_BLACK);
-            ProgressBar2((unsigned char*)"", i, MCS_SIZE);
+            drawProgressBar(60, 93, i, MCS_SIZE, COLOR_BLUE);
+            Bdisp_PutDisp_DD();
 
             if (rc == 0) {
                 MCS_DeleteDirectory(dir->name);

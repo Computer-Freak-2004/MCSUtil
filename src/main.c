@@ -39,7 +39,7 @@ int main() {
         Cursor_SetFlashOff();
         Bdisp_AllClr_VRAM();
 
-        EnableStatusArea(1);
+        printTitle("");
         DisplayStatusArea();
 
         PrintXY(1, 1, "       MCS Utility", 0x20, TEXT_COLOR_BLUE);

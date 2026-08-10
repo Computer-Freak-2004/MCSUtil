@@ -112,10 +112,12 @@ void showItems() {
 
     MsgBoxPush(6);
     while (1) {
-        fillArea(34, 85, 300, 109, COLOR_WHITE);
+        fillArea(35, 85, 300, 109, COLOR_WHITE);
 
         int x = 40, y = 25;
-        PrintMini(&x, &y, "Items:", 0, LCD_WIDTH_PX, 0, 0, COLOR_BLUE, COLOR_WHITE, 1, 0);
+        PrintMini(&x, &y, "Items of ", 0, LCD_WIDTH_PX, 0, 0, COLOR_BLUE, COLOR_WHITE, 1, 0);
+        PrintMini(&x, &y, (char*)dir->name, 0, LCD_WIDTH_PX, 0, 0, COLOR_BLUE, COLOR_WHITE, 1, 0);
+        PrintMini(&x, &y, ":", 0, LCD_WIDTH_PX, 0, 0, COLOR_BLUE, COLOR_WHITE, 1, 0);
 
         x = 40, y = 45;
         PrintMini(&x, &y, "Name", 0, LCD_WIDTH_PX, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
@@ -182,18 +184,17 @@ void deleteSingleDir() {
 
     current = 0;
     item_count = MCS_SIZE;
-    row_count = 6;
+    row_count = 7;
     top_entry = 0;
 
     while (1) {
         Bdisp_AllClr_VRAM();
-        EnableStatusArea(1);
+        printTitle("Delete single directory");
         DisplayStatusArea();
-        printTitle("Delete single directory", 75);
 
         getDirList();
 
-        x = 0, y = 20;
+        x = 0, y = 0;
         PrintMini(&x, &y, "Name", 0, LCD_WIDTH_PX, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
         x = 120;
         PrintMini(&x, &y, "Items", 0, LCD_WIDTH_PX, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
@@ -203,7 +204,7 @@ void deleteSingleDir() {
         PrintMini(&x, &y, "Flags", 0, LCD_WIDTH_PX, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
 
         //debugMenu(current, top_entry, item_count, row_count);
-        drawMenu(0, 43, 378, row_count, 0, items, item_count, top_entry, current, 1, 1, 0, 120, 190, 317, 0);
+        drawMenu(0, 23, 378, row_count, 0, items, item_count, top_entry, current, 1, 1, 0, 120, 190, 317, 0);
 
         x = 0, y = 175;
         PrintMini(&x, &y, "[F1] Items | [EXE] Delete | [\xE6\x95][\xE6\x94] Browse", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);

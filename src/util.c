@@ -5,18 +5,27 @@
 #include <fxcg/misc.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
 
-void printTitle(char* str, int x) {
-    int y = 0;
-    PrintMini(&x, &y, str, 0, 0xFFFFFFFF, 0, 0, COLOR_BLUE, COLOR_WHITE, 1, 0);
-
-    drawHLine(42);
+void printTitle(char* str) {
+    EnableStatusArea(0);
+    DefineStatusAreaFlags(3, SAF_BATTERY | SAF_TEXT | SAF_ALPHA_SHIFT, 0, 0);
+    DefineStatusMessage(str, 0, TEXT_COLOR_BLUE, 0);
 }
 
 void drawHLine(int y) {
     for (int x = 0; x < LCD_WIDTH_PX; x++) {
         Bdisp_SetPoint_VRAM(x, y, COLOR_BLACK);
     }
+}
+
+#define PROGRESSBAR_WIDTH 255
+void drawProgressBar(int x, int y, int current, int max, short color) {
+    float progress = (float)current / (float)max;
+    int progress_width = (int)(progress * PROGRESSBAR_WIDTH);
+
+    Bdisp_Rectangle(x, y - 2, x + PROGRESSBAR_WIDTH + 5, y + 18, COLOR_BLACK);
+    fillArea(x + 3, y + 25, progress_width, 15, color);
 }
 
 void fillArea(unsigned x, unsigned y, unsigned w, unsigned h, unsigned short col) {

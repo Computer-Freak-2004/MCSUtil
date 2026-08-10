@@ -65,10 +65,9 @@ void createDirTest() {
     while (1) {
         Bdisp_AllClr_VRAM();
 
-        EnableStatusArea(1);
+        
+        printTitle("Create Directory Test");
         DisplayStatusArea();
-
-        printTitle("Create Directory Test", 85);
 
         printResult();
 

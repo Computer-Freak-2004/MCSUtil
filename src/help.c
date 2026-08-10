@@ -107,7 +107,7 @@ void help() {
     };
 
     int total_lines = sizeof(text) / sizeof(text[0]);
-    int visible_lines = 8;
+    int visible_lines = 9;
     int scroll_pos = 0;
     struct scrollbar sb;
     sb.I1 = 0;
@@ -126,14 +126,13 @@ void help() {
 
     while (1) {
         Bdisp_AllClr_VRAM();
-        EnableStatusArea(1);
-        DisplayStatusArea();
 
-        printTitle("Help", 160);
+        printTitle("Help");
+        DisplayStatusArea();
 
         for (int i = 0; i < visible_lines && scroll + i < total_lines; i++) {
             int x = 0;
-            int y = 20 + i * 20;
+            int y = i * 20;
             PrintMini(&x, &y, text[scroll + i], 0, LCD_WIDTH_PX, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
         }
 

@@ -34,9 +34,8 @@ void dirSpaceUsage() {
     while (1) {
         Bdisp_AllClr_VRAM();
 
-        EnableStatusArea(1);
+        printTitle("Directory space usage");
         DisplayStatusArea();
-        printTitle("Directory space usage", 80);
 
         int usage = 0;
         int itemCount = 0;
@@ -85,8 +84,7 @@ void dirSpaceUsage() {
         PrintMini(&x, &y, mcsFree_str, 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
         PrintMini(&x, &y, " Byte", 0, 0xFFFFFFFF, 0, 0, COLOR_BLACK, COLOR_WHITE, 1, 0);
 
-        Bdisp_Rectangle(63, 98, 320, 118, COLOR_BLACK);
-        ProgressBar2((unsigned char*)"", usage, MCS_SIZE);
+        drawProgressBar(63, 100, usage, MCS_SIZE, COLOR_BLUE);
 
         GetKey(&key);
         if (key == KEY_CTRL_EXIT) {

@@ -36,11 +36,10 @@ MKG3AFLAGS := -n basic:"MCS Util" -n internal:"" -i uns:../unselected.bmp -i sel
 # (LTO). Doing so will usually allow the compiler to generate much better code
 # (smaller and/or faster), but may expose bugs in your code that don't cause
 # any trouble without LTO enabled.
-CFLAGS	= -Os -Wall $(MACHDEP) $(INCLUDE) -ffunction-sections -fdata-sections -DGIT_COMMIT=\"$(GIT_COMMIT)\" -flto
+CFLAGS	= -Os -Wall $(MACHDEP) $(INCLUDE) -ffunction-sections -fdata-sections -DGIT_COMMIT=\"$(GIT_COMMIT)\" 
 CXXFLAGS	=	$(CFLAGS) -fno-exceptions
 ASFLAGS += -Ic:$(INCLUDE)
-LDFLAGS	= $(MACHDEP) -T$(FXCGSDK)/toolchain/prizm.x -Wl,-static -Wl,-gc-sections -flto \
-          -Wl,-u,_strcmp -Wl,-u,_strcpy -Wl,-u,_strcat -Wl,-u,_malloc
+LDFLAGS	= $(MACHDEP) -T$(FXCGSDK)/toolchain/prizm.x -Wl,-static -Wl,-gc-sections
 
 #---------------------------------------------------------------------------------
 # any extra libraries we wish to link with the project
