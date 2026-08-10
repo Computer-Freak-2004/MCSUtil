@@ -12,11 +12,11 @@ void help() {
         "This add-in allows for simple ",
         "management of MCS (Main Content ",
         "System) directories. All add-ins",
-        "have an internal name (@CBASIC ",
-        "for example) and a MCS directory",
-        "with the same name (limited to",
-        "to 8 chars) is created when the ",
-        "add-in starts.",
+        "have an internal name (@CBASIC for",
+        "example) and a MCS directory with",
+        "the same name (limited to to 8 ",
+        "chars) is created when the add-in",
+        "starts.",
         "",
         "There can only be 147 (0x93) ",
         "directory entries. If the limit is ",
@@ -116,8 +116,8 @@ void help() {
     sb.indicatorpos = scroll_pos;
     sb.I5 = 0;
     sb.barleft = 378;
-    sb.bartop = 20;
-    sb.barheight = 170;
+    sb.bartop = 0;
+    sb.barheight = 177;
     sb.barwidth = 6;
 
     Scrollbar(&sb);
@@ -143,11 +143,23 @@ void help() {
         if (key == KEY_CTRL_EXIT) {
             break;
         }
-        if (key == KEY_CTRL_DOWN && scroll < total_lines - visible_lines)
+        if (key == KEY_CTRL_DOWN && scroll < total_lines - visible_lines) {
             scroll++;
-
+        }
+        if (key == KEY_CTRL_RIGHT) {
+            scroll += visible_lines;
+            if (scroll > total_lines - visible_lines) {
+                scroll = total_lines - visible_lines;
+            }
+        }
         if (key == KEY_CTRL_UP && scroll > 0) {
             scroll--;
+        }
+        if (key == KEY_CTRL_LEFT) {
+            scroll -= visible_lines;
+            if (scroll < 0) {
+                scroll = 0;
+            }
         }
     }
 }
