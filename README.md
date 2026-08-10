@@ -9,6 +9,8 @@ This utility helps to fix that.
 
 ### Create Directory Test
 
+![Create Dir Screenshot](screenshots/CreateDirTest.png)
+
 You can enter a name to test if a new MCS directory can be created. The `@` symbol gets automatically added to the front of your input.
 
 After entering a name, the return code and its meaning are shown:
@@ -22,6 +24,8 @@ of it:
 If you see `0x43`, there is no space left. Delete some directories to allow add-ins with new internal names to start again.
 
 ### Delete single directory
+
+![Delete single directory](screenshots/DeleteSingleDir.png)
 
 - `[↓]` and `[↑]` go one entry up or down
 - `[←]` and `[→]` jump one page back or forward
@@ -38,9 +42,13 @@ Press `[EXE]` to delete the current directory entirely. The following return cod
 
 ### Delete all empty directories
 
+![Delete all empty dirs Screenshot](screenshots/DeleteAllDirs.png)
+
 This deletes all empty directories. This is useful for quickly freeing space when the directory space is exhausted and new add-ins don't start.
 
 ### Directory space usage
+
+![Dir Space usage Screenshot](screenshots/DirSpaceUsage.png)
 
 Shows how many of the 147 directory entries are currently in use. It's impossible to reach 0% usage as there are system directories that can't be deleted:
 - `@APLWORK`
@@ -49,6 +57,7 @@ Shows how many of the 147 directory entries are currently in use. It's impossibl
 - `@REV3..@REV1`
 - `library`
 - `system`
+
 Additionally it shows the total number of items and the amount of free MCS space in bytes.
 
 ### Test Mode
